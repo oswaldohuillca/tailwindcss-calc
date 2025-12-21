@@ -1,0 +1,4 @@
+@import "tailwindcss";
+
+/* Importar el plugin personalizado */
+@import "../src/plugin.css";

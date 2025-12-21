@@ -1,0 +1,26 @@
+{
+  "name": "tailwindcss-calc-demo",
+  "version": "0.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.css",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "example": "vite"
+  },
+  "keywords": [
+    "tailwindcss",
+    "tailwindcss-plugin",
+    "css",
+    "utility-classes"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@tailwindcss/vite": "4.0.0",
+    "tailwindcss": "4.0.0",
+    "vite": "7.3.0"
+  }
+}

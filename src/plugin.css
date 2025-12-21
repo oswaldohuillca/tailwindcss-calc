@@ -1,0 +1,250 @@
+/**
+ * Custom plugin for Tailwind CSS v4
+ * Responsive utilities with calc() based on viewport
+ */
+
+/* ============================================
+   THEME VARIABLES
+   ============================================ */
+@theme {
+  --window-width: 1920;
+  --window-max-width: var(--window-width) * 1px;
+}
+
+/* ============================================
+   CONTAINER
+   ============================================ */
+@utility container {
+  width: 100%;
+  max-width: var(--window-max-width);
+  @apply px-[1rem];
+}
+
+/* ============================================
+   WIDTH & HEIGHT
+   ============================================ */
+@utility w-* {
+  width: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+@utility h-* {
+  height: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+@utility size-* {
+  width: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  height: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+/* ============================================
+   MIN/MAX WIDTH & HEIGHT
+   ============================================ */
+@utility min-w-* {
+  min-width: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+@utility max-w-* {
+  max-width: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+@utility min-h-* {
+  min-height: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+@utility max-h-* {
+  max-height: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+/* ============================================
+   PADDING
+   ============================================ */
+@utility p-* {
+  padding: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+@utility px-* {
+  padding-inline: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+@utility py-* {
+  padding-block: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+@utility pt-* {
+  padding-top: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+@utility pb-* {
+  padding-bottom: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+@utility pl-* {
+  padding-left: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+@utility pr-* {
+  padding-right: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+/* ============================================
+   MARGIN
+   ============================================ */
+@utility m-* {
+  margin: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+@utility mx-* {
+  margin-inline: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+@utility my-* {
+  margin-block: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+@utility mt-* {
+  margin-top: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+@utility mb-* {
+  margin-bottom: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+@utility ml-* {
+  margin-left: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+@utility mr-* {
+  margin-right: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+/* ============================================
+   TYPOGRAPHY
+   ============================================ */
+@utility text-* {
+  font-size: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+@utility leading-* {
+  line-height: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+@utility tracking-* {
+  letter-spacing: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+@utility word-spacing-* {
+  word-spacing: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+/* ============================================
+   GAP
+   ============================================ */
+@utility gap-* {
+  gap: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+@utility gap-x-* {
+  column-gap: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+@utility gap-y-* {
+  row-gap: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+@utility grid-gap-* {
+  grid-gap: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+@utility col-gap-* {
+  column-gap: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+@utility row-gap-* {
+  row-gap: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+/* ============================================
+   BORDER RADIUS
+   ============================================ */
+@utility rounded-* {
+  border-radius: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+/* ============================================
+   POSITIONING
+   ============================================ */
+@utility top-* {
+  top: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+@utility bottom-* {
+  bottom: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+@utility left-* {
+  left: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+@utility right-* {
+  right: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+/* ============================================
+   INSET
+   ============================================ */
+@utility inset-* {
+  inset: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+@utility inset-x-* {
+  inset-left: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  inset-right: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+@utility inset-y-* {
+  inset-top: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  inset-bottom: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+/* ============================================
+   TRANSFORM
+   ============================================ */
+@utility translate-x-* {
+  --tw-translate-x: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y, 0)) rotate(var(--tw-rotate, 0)) skewX(var(--tw-skew-x, 0)) skewY(var(--tw-skew-y, 0)) scaleX(var(--tw-scale-x, 1)) scaleY(var(--tw-scale-y, 1));
+}
+
+@utility translate-y-* {
+  --tw-translate-y: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  transform: translate(var(--tw-translate-x, 0), var(--tw-translate-y)) rotate(var(--tw-rotate, 0)) skewX(var(--tw-skew-x, 0)) skewY(var(--tw-skew-y, 0)) scaleX(var(--tw-scale-x, 1)) scaleY(var(--tw-scale-y, 1));
+}
+
+/* ============================================
+   BORDER WIDTH
+   ============================================ */
+@utility border-w-* {
+  border-width: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+@utility border-t-* {
+  border-top-width: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+@utility border-r-* {
+  border-right-width: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+@utility border-b-* {
+  border-bottom-width: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+@utility border-l-* {
+  border-left-width: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}
+
+/* ============================================
+   OUTLINE
+   ============================================ */
+@utility outline-offset-* {
+  outline-offset: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+}

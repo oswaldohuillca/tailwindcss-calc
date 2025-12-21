@@ -1,0 +1,21 @@
+{
+    "name": "tailwindcss-calc",
+    "version": "1.0.0",
+    "description": "A Tailwind CSS v4 plugin using CSS-only approach",
+    "type": "module",
+    "main": "src/plugin.css",
+    "scripts": {
+      "dev": "cd example && bun dev",
+      "build": "cd example && bun build",
+      "preview": "cd example && bun preview"
+    },
+    "keywords": [
+      "tailwindcss",
+      "tailwindcss-plugin",
+      "css",
+      "utility-classes"
+    ],
+    "author": "",
+    "license": "MIT"
+  }
+  
