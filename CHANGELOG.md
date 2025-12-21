@@ -1,0 +1,31 @@
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+## v0.0.1
+
+Initial release
+
+### 🚀 Features
+
+- Responsive utilities with calc() based on viewport width
+- Width, height, and size utilities
+- Min/max width and height utilities
+- Padding and margin utilities (all directions)
+- Typography utilities (font-size, leading, tracking, word-spacing)
+- Gap utilities for flexbox and grid
+- Border radius utilities
+- Positioning utilities (top, bottom, left, right, inset)
+- Transform utilities (translate-x, translate-y)
+- Border width utilities
+- Outline offset utilities
+- Container utility with responsive padding
+- Configurable base width (default: 1920px)
+- All utilities scale responsively using clamp()
+
+### 📖 Documentation
+
+- Comprehensive README with examples
+- Example project demonstrating all utilities
+- Installation and usage instructions
+

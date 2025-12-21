@@ -22,6 +22,17 @@
   ],
   "author": "Oswa <oswaldohuillca@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "release": "changelogen --release --push --publish",
+    "release:minor": "changelogen --minor --release --push --publish",
+    "release:major": "changelogen --major --release --push --publish",
+    "release:patch": "changelogen --patch --release --push --publish",
+    "release:gh": "changelogen gh release",
+    "changelog": "changelogen"
+  },
+  "devDependencies": {
+    "changelogen": "^0.5.5"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/oswaldohuillca/tailwindcss-calc.git"

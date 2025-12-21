@@ -250,6 +250,97 @@ Perfect for:
 
 MIT
 
+## 🚀 Publishing & Releases
+
+This project uses [changelogen](https://unjs.io/packages/changelogen) for automatic changelog generation, npm publishing, and GitHub releases.
+
+### Release Workflow
+
+1. **Make changes** following conventional commits
+2. **Run release command** (automatically bumps version, updates CHANGELOG, commits, creates git tag, publishes to npm, and pushes to GitHub)
+3. **GitHub Action** automatically creates GitHub release when tag is pushed
+
+### Release Commands
+
+```bash
+# Patch release (0.0.x) - for bug fixes
+npm run release
+# or
+npm run release:patch
+
+# Minor release (0.x.0) - for new features
+npm run release:minor
+
+# Major release (x.0.0) - for breaking changes
+npm run release:major
+
+# Only generate changelog (no publish)
+npm run changelog
+
+# Create GitHub release from existing tag
+npm run release:gh
+```
+
+### What Happens on Release
+
+1. ✅ Analyzes commits since last release
+2. ✅ Determines version bump (semver)
+3. ✅ Updates `CHANGELOG.md`
+4. ✅ Updates version in `package.json`
+5. ✅ Creates git commit with changes
+6. ✅ Creates git tag (e.g., `v1.0.0`)
+7. ✅ Pushes to GitHub
+8. ✅ Publishes to npm
+9. ✅ GitHub Action creates release (automatically)
+
+### Commit Convention
+
+Use [conventional commits](https://www.conventionalcommits.org/) for automatic changelog generation:
+
+```bash
+feat: add new utility          # Minor bump (new feature)
+fix: resolve calc issue        # Patch bump (bug fix)
+perf: improve performance      # Patch bump (performance)
+docs: update README            # No version bump
+refactor: simplify code        # Patch bump (refactor)
+style: format code             # No version bump
+test: add tests                # No version bump
+chore: update dependencies     # No version bump
+ci: update workflow            # No version bump
+
+# Breaking changes (Major bump)
+feat!: change API completely
+fix!: breaking fix
+
+# Or with body
+feat: add new feature
+
+BREAKING CHANGE: This changes the API
+```
+
+### Setup Requirements
+
+#### For npm Publishing
+
+1. **Create npm account** at [npmjs.com](https://www.npmjs.com/)
+2. **Login locally**: `npm login`
+3. **Set npm token in GitHub** (for CI):
+   - Create token at [npmjs.com/settings/tokens](https://www.npmjs.com/settings/tokens)
+   - Add as `NPM_TOKEN` in GitHub repository secrets
+
+#### For GitHub Releases
+
+GitHub token is automatically available in GitHub Actions via `GITHUB_TOKEN`.
+
+For local releases with GitHub integration:
+- Use GitHub CLI: `gh auth login`
+- Or set `GITHUB_TOKEN` environment variable
+
 ## 🤝 Contributing
 
-Contributions are welcome! Please open an issue or pull request.
+Contributions are welcome! Please:
+
+1. Use conventional commits for your changes
+2. Run tests before submitting PR
+3. Update documentation if needed
+4. Open an issue or pull request
