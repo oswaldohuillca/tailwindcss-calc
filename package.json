@@ -1,21 +1,37 @@
 {
-    "name": "tailwindcss-calc",
-    "version": "1.0.0",
-    "description": "A Tailwind CSS v4 plugin using CSS-only approach",
-    "type": "module",
-    "main": "src/plugin.css",
-    "scripts": {
-      "dev": "cd example && bun dev",
-      "build": "cd example && bun build",
-      "preview": "cd example && bun preview"
-    },
-    "keywords": [
-      "tailwindcss",
-      "tailwindcss-plugin",
-      "css",
-      "utility-classes"
-    ],
-    "author": "",
-    "license": "MIT"
+  "name": "tailwindcss-calc",
+  "version": "0.0.1",
+  "description": "A Tailwind CSS v4 plugin built entirely with CSS that provides responsive utilities using `calc()` and `clamp()` based on viewport width.",
+  "type": "module",
+  "main": "./src/plugin.css",
+  "style": "./src/plugin.css",
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "tailwindcss",
+    "tailwindcss-plugin",
+    "css",
+    "utility-classes",
+    "responsive",
+    "viewport-based",
+    "calc",
+    "clamp"
+  ],
+  "author": "Oswa <oswaldohuillca@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oswaldohuillca/tailwindcss-calc.git"
+  },
+  "bugs": {
+    "url": "https://github.com/oswaldohuillca/tailwindcss-calc/issues"
+  },
+  "homepage": "https://github.com/oswaldohuillca/tailwindcss-calc#readme",
+  "exports": {
+    ".": "./src/plugin.css",
+    "./plugin.css": "./src/plugin.css"
   }
-  
+}

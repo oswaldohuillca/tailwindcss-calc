@@ -13,12 +13,35 @@ A Tailwind CSS v4 plugin built entirely with CSS that provides responsive utilit
 ## 📦 Installation
 
 ```bash
-npm install
+npm install tailwindcss-calc
 # or
-bun install
+bun add tailwindcss-calc
+# or
+pnpm add tailwindcss-calc
 ```
 
-## 🛠️ Usage
+## 🚀 Quick Start
+
+After installation, create your CSS file:
+
+```css
+/* styles.css */
+@import "tailwindcss";
+@import "tailwindcss-calc";
+```
+
+Then use the utilities in your HTML:
+
+```html
+<div class="w-500 h-300 p-20 m-10">
+  <h1 class="text-32 mb-20">Hello World</h1>
+  <p class="text-16 leading-24">Responsive content</p>
+</div>
+```
+
+## 🛠️ Development
+
+To run the example locally:
 
 ### Development
 
@@ -152,16 +175,31 @@ tailwindcss-calc/
 
 ## 🔧 How to Use in Your Project
 
-### Option 1: Import the plugin
+### Option 1: Install from npm (Recommended)
 
-In your CSS file:
+1. Install the package:
+
+```bash
+npm install tailwindcss-calc
+```
+
+2. Import in your CSS file:
 
 ```css
 @import "tailwindcss";
-@import "./path/to/plugin.css";
+@import "tailwindcss-calc";
 ```
 
-### Option 2: Copy the content
+That's it! All utilities are now available.
+
+### Option 2: Import from node_modules
+
+```css
+@import "tailwindcss";
+@import "tailwindcss-calc/src/plugin.css";
+```
+
+### Option 3: Copy the source
 
 Copy the content from `src/plugin.css` and paste it into your main CSS file after `@import "tailwindcss"`.
 
