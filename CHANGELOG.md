@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## v0.0.2
+
+
+### 🚀 Enhancements
+
+- Changelog configuration, release scripts, and documentation for publishing process ([55b1fa8](https://github.com/oswaldohuillca/tailwindcss-calc/commit/55b1fa8))
+
+### ❤️ Contributors
+
+- Oswa <oswaldohuillca@gmail.com>
+
 ## v0.0.1
 
 Initial release

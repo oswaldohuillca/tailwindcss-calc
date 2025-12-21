@@ -1,6 +1,6 @@
 {
   "name": "tailwindcss-calc",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A Tailwind CSS v4 plugin built entirely with CSS that provides responsive utilities using `calc()` and `clamp()` based on viewport width.",
   "type": "module",
   "main": "./src/plugin.css",
