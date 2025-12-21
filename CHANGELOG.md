@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## v0.0.4
+
+[compare changes](https://github.com/oswaldohuillca/tailwindcss-calc/compare/v0.0.1...v0.0.4)
+
+### 🏡 Chore
+
+- **release:** Bump version to v0.0.3 ([0136bbf](https://github.com/oswaldohuillca/tailwindcss-calc/commit/0136bbf))
+
+### ❤️ Contributors
+
+- Oswa <oswaldohuillca@gmail.com>
+
 ## v0.0.2
 
 
