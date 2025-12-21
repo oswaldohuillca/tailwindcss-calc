@@ -6,10 +6,13 @@
 /* ============================================
    THEME VARIABLES
    ============================================ */
-@theme {
-  --window-width: 1920;
-  --window-max-width: var(--window-width) * 1px;
+@layer theme {
+  :root {
+    --window-width: 1440;
+    --window-max-width: var(--window-width) * 1px;
+  }
 }
+
 
 /* ============================================
    CONTAINER
@@ -23,6 +26,7 @@
 /* ============================================
    WIDTH & HEIGHT
    ============================================ */
+
 @utility w-* {
   width: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
 }
