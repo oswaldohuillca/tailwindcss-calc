@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## v0.0.5
+
+[compare changes](https://github.com/oswaldohuillca/tailwindcss-calc/compare/v0.0.4...v0.0.5)
+
 ## v0.0.4
 
 [compare changes](https://github.com/oswaldohuillca/tailwindcss-calc/compare/v0.0.1...v0.0.4)
