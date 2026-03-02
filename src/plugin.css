@@ -8,18 +8,24 @@
    ============================================ */
 @layer theme {
   :root {
-    --window-width: 1440;
+    --window-width: 375;
     --window-max-width: var(--window-width) * 1px;
   }
-}
 
+  @variant md {
+    :root {
+      --window-width: 1440;
+    }
+  }
+}
 
 /* ============================================
    CONTAINER
    ============================================ */
 @utility container {
   width: 100%;
-  max-width: var(--window-max-width);
+  max-width: calc(var(--window-width) * 1px);
+  margin-inline: auto;
   @apply px-[1rem];
 }
 
@@ -28,227 +34,532 @@
    ============================================ */
 
 @utility w-* {
-  width: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  width: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 @utility h-* {
-  height: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  height: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 @utility size-* {
-  width: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
-  height: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  width: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
+  height: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 /* ============================================
    MIN/MAX WIDTH & HEIGHT
    ============================================ */
 @utility min-w-* {
-  min-width: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  min-width: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 @utility max-w-* {
-  max-width: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  max-width: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 @utility min-h-* {
-  min-height: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  min-height: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 @utility max-h-* {
-  max-height: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  max-height: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 /* ============================================
    PADDING
    ============================================ */
 @utility p-* {
-  padding: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  padding: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 @utility px-* {
-  padding-inline: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  padding-inline: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 @utility py-* {
-  padding-block: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  padding-block: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 @utility pt-* {
-  padding-top: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  padding-top: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 @utility pb-* {
-  padding-bottom: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  padding-bottom: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 @utility pl-* {
-  padding-left: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  padding-left: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 @utility pr-* {
-  padding-right: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  padding-right: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 /* ============================================
    MARGIN
    ============================================ */
 @utility m-* {
-  margin: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  margin: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
+}
+
+@utility -m-* {
+  margin: calc(
+    --value(integer) * -1 * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 @utility mx-* {
-  margin-inline: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  margin-inline: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
+}
+
+@utility -mx-* {
+  margin-inline: calc(
+    --value(integer) * -1 * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 @utility my-* {
-  margin-block: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  margin-block: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
+}
+
+@utility -my-* {
+  margin-block: calc(
+    --value(integer) * -1 * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 @utility mt-* {
-  margin-top: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  margin-top: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
+}
+
+@utility -mt-* {
+  margin-top: calc(
+    --value(integer) * -1 * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 @utility mb-* {
-  margin-bottom: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  margin-bottom: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
+}
+
+@utility -mb-* {
+  margin-bottom: calc(
+    --value(integer) * -1 * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 @utility ml-* {
-  margin-left: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  margin-left: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
+}
+
+@utility -ml-* {
+  margin-left: calc(
+    --value(integer) * -1 * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 @utility mr-* {
-  margin-right: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  margin-right: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
+}
+
+@utility -mr-* {
+  margin-right: calc(
+    --value(integer) * -1 * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 /* ============================================
    TYPOGRAPHY
    ============================================ */
 @utility text-* {
-  font-size: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  font-size: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 @utility leading-* {
-  line-height: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  line-height: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 @utility tracking-* {
-  letter-spacing: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  letter-spacing: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
+}
+
+@utility -tracking-* {
+  letter-spacing: calc(
+    --value(integer) * -1 * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 @utility word-spacing-* {
-  word-spacing: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  word-spacing: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
+}
+
+@utility -word-spacing-* {
+  word-spacing: calc(
+    --value(integer) * -1 * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 /* ============================================
    GAP
    ============================================ */
 @utility gap-* {
-  gap: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  gap: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 @utility gap-x-* {
-  column-gap: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  column-gap: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 @utility gap-y-* {
-  row-gap: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  row-gap: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 @utility grid-gap-* {
-  grid-gap: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  grid-gap: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 @utility col-gap-* {
-  column-gap: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  column-gap: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 @utility row-gap-* {
-  row-gap: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  row-gap: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 /* ============================================
    BORDER RADIUS
    ============================================ */
 @utility rounded-* {
-  border-radius: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  border-radius: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 /* ============================================
    POSITIONING
    ============================================ */
 @utility top-* {
-  top: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  top: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
+}
+
+@utility -top-* {
+  top: calc(
+    --value(integer) * -1 * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 @utility bottom-* {
-  bottom: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  bottom: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
+}
+
+@utility -bottom-* {
+  bottom: calc(
+    --value(integer) * -1 * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 @utility left-* {
-  left: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  left: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
+}
+
+@utility -left-* {
+  left: calc(
+    --value(integer) * -1 * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 @utility right-* {
-  right: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  right: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
+}
+
+@utility -right-* {
+  right: calc(
+    --value(integer) * -1 * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 /* ============================================
    INSET
    ============================================ */
 @utility inset-* {
-  inset: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  inset: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
+}
+
+@utility -inset-* {
+  inset: calc(
+    --value(integer) * -1 * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 @utility inset-x-* {
-  inset-left: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
-  inset-right: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  inset-left: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
+  inset-right: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
+}
+
+@utility -inset-x-* {
+  inset-left: calc(
+    --value(integer) * -1 * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
+  inset-right: calc(
+    --value(integer) * -1 * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 @utility inset-y-* {
-  inset-top: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
-  inset-bottom: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  inset-top: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
+  inset-bottom: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
+}
+
+@utility -inset-y-* {
+  inset-top: calc(
+    --value(integer) * -1 * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
+  inset-bottom: calc(
+    --value(integer) * -1 * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 /* ============================================
    TRANSFORM
    ============================================ */
 @utility translate-x-* {
-  --tw-translate-x: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y, 0)) rotate(var(--tw-rotate, 0)) skewX(var(--tw-skew-x, 0)) skewY(var(--tw-skew-y, 0)) scaleX(var(--tw-scale-x, 1)) scaleY(var(--tw-scale-y, 1));
+  --tw-translate-x: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y, 0))
+    rotate(var(--tw-rotate, 0)) skewX(var(--tw-skew-x, 0))
+    skewY(var(--tw-skew-y, 0)) scaleX(var(--tw-scale-x, 1))
+    scaleY(var(--tw-scale-y, 1));
+}
+
+@utility -translate-x-* {
+  --tw-translate-x: calc(
+    --value(integer) * -1 * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y, 0))
+    rotate(var(--tw-rotate, 0)) skewX(var(--tw-skew-x, 0))
+    skewY(var(--tw-skew-y, 0)) scaleX(var(--tw-scale-x, 1))
+    scaleY(var(--tw-scale-y, 1));
 }
 
 @utility translate-y-* {
-  --tw-translate-y: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
-  transform: translate(var(--tw-translate-x, 0), var(--tw-translate-y)) rotate(var(--tw-rotate, 0)) skewX(var(--tw-skew-x, 0)) skewY(var(--tw-skew-y, 0)) scaleX(var(--tw-scale-x, 1)) scaleY(var(--tw-scale-y, 1));
+  --tw-translate-y: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
+  transform: translate(var(--tw-translate-x, 0), var(--tw-translate-y))
+    rotate(var(--tw-rotate, 0)) skewX(var(--tw-skew-x, 0))
+    skewY(var(--tw-skew-y, 0)) scaleX(var(--tw-scale-x, 1))
+    scaleY(var(--tw-scale-y, 1));
+}
+
+@utility -translate-y-* {
+  --tw-translate-y: calc(
+    --value(integer) * -1 * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
+  transform: translate(var(--tw-translate-x, 0), var(--tw-translate-y))
+    rotate(var(--tw-rotate, 0)) skewX(var(--tw-skew-x, 0))
+    skewY(var(--tw-skew-y, 0)) scaleX(var(--tw-scale-x, 1))
+    scaleY(var(--tw-scale-y, 1));
 }
 
 /* ============================================
    BORDER WIDTH
    ============================================ */
 @utility border-w-* {
-  border-width: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  border-width: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 @utility border-t-* {
-  border-top-width: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  border-top-width: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 @utility border-r-* {
-  border-right-width: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  border-right-width: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 @utility border-b-* {
-  border-bottom-width: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  border-bottom-width: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 @utility border-l-* {
-  border-left-width: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  border-left-width: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
 
 /* ============================================
    OUTLINE
    ============================================ */
 @utility outline-offset-* {
-  outline-offset: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  outline-offset: calc(
+    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
+}
+
+@utility -outline-offset-* {
+  outline-offset: calc(
+    --value(integer) * -1 * clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width)
+  );
 }
