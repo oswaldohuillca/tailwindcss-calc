@@ -1,25 +1,901 @@
-<!DOCTYPE html>
-<html lang="es">
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>tailwindcss-calc — Responsive utilities without breakpoints</title>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tailwind CSS v4 Plugin - Demo</title>
-  <link rel="stylesheet" href="./index.css">
+  <body class="bg-zinc-950 text-white">
+    <!-- NAV -->
+    <header
+      class="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-zinc-950/80 backdrop"
+    >
+      <div class="container flex items-center justify-between py-18">
+        <span class="mono font-bold text-16 text-white">tailwindcss-calc</span>
+        <nav class="flex items-center gap-32">
+          <a
+            href="#how-it-works"
+            class="text-14 text-zinc-400 hover:text-white transition"
+            >How it works</a
+          >
+          <a
+            href="#features"
+            class="text-14 text-zinc-400 hover:text-white transition"
+            >Features</a
+          >
+          <a
+            href="#utilities"
+            class="text-14 text-zinc-400 hover:text-white transition"
+            >Utilities</a
+          >
+          <a
+            href="#install"
+            class="text-14 text-zinc-400 hover:text-white transition"
+            >Install</a
+          >
+          <a
+            href="https://github.com/oswaldohuillca/tailwindcss-calc"
+            target="_blank"
+            class="mono text-13 bg-violet-600 hover:bg-violet-500 text-white px-18 py-10 rounded-8 transition"
+            >GitHub →</a
+          >
+        </nav>
+      </div>
+    </header>
 
-</head>
+    <!-- HERO -->
+    <section class="container pt-200 pb-120 text-center">
+      <div
+        class="inline-flex items-center gap-8 border border-white/10 bg-white/5 px-16 py-8 rounded-full mb-40"
+      >
+        <span class="w-6 h-6 bg-emerald-400 rounded-full inline-block"></span>
+        <span class="mono text-13 text-zinc-400">v0.0.4 · Tailwind CSS v4</span>
+      </div>
 
-<body class="bg-gray-50 text-gray-900 container">
-  <h1 class="text-180">Hello World</h1>
-  <!-- Header -->
+      <h1
+        class="text-88 font-bold mb-24"
+        style="line-height: 1.05; letter-spacing: -0.03em"
+      >
+        Pixel-perfect scaling.<br />
+        <span style="color: #a78bfa">Zero breakpoints.</span>
+      </h1>
 
+      <p
+        class="text-zinc-400 mb-56 mx-auto"
+        style="font-size: 1.2rem; line-height: 1.75; max-width: 540px"
+      >
+        A Tailwind CSS v4 plugin built entirely in CSS. Every utility scales
+        proportionally to the viewport using
+        <code class="text-white bg-white/10 px-8 py-2 rounded-4">calc()</code>
+        and
+        <code class="text-white bg-white/10 px-8 py-2 rounded-4">clamp()</code>.
+      </p>
 
-  <!-- Main Content -->
+      <div class="flex items-center justify-center gap-16 flex-wrap">
+        <div
+          class="inline-flex items-center gap-12 bg-white/5 border border-white/10 px-24 py-16 rounded-12 mono"
+        >
+          <span class="text-zinc-500 text-14">$</span>
+          <span class="text-14 text-white">npm install tailwindcss-calc</span>
+          <button
+            onclick="navigator.clipboard.writeText('npm install tailwindcss-calc'); this.textContent='✓'; setTimeout(()=>this.textContent='⎘',1500)"
+            class="text-zinc-500 hover:text-white text-14 ml-4 transition"
+            title="Copy"
+          >
+            ⎘
+          </button>
+        </div>
+        <a
+          href="#how-it-works"
+          class="px-24 py-16 rounded-12 text-14 text-zinc-300 border border-white/10 hover:border-white/25 hover:text-white transition"
+          >See how it works →</a
+        >
+      </div>
+    </section>
 
+    <!-- SCALE VISUALIZER -->
+    <section class="py-64 border-t border-white/5">
+      <div class="container">
+        <p
+          class="text-center mono text-13 text-zinc-600 mb-48 uppercase"
+          style="letter-spacing: 0.1em"
+        >
+          Live demo — resize the window
+        </p>
+        <div class="flex items-end justify-center gap-24">
+          <div class="flex flex-col items-center gap-12">
+            <span class="mono text-11 text-zinc-600">w-40</span>
+            <div class="bg-violet-500/30 rounded-8 w-40 h-40"></div>
+          </div>
+          <div class="flex flex-col items-center gap-12">
+            <span class="mono text-11 text-zinc-600">w-80</span>
+            <div class="bg-violet-500/45 rounded-8 w-80 h-80"></div>
+          </div>
+          <div class="flex flex-col items-center gap-12">
+            <span class="mono text-11 text-zinc-600">w-120</span>
+            <div class="bg-violet-500/60 rounded-8 w-120 h-120"></div>
+          </div>
+          <div class="flex flex-col items-center gap-12">
+            <span class="mono text-11 text-zinc-600">w-160</span>
+            <div class="bg-violet-500/80 rounded-8 w-160 h-160"></div>
+          </div>
+          <div class="flex flex-col items-center gap-12">
+            <span class="mono text-11 text-zinc-600">w-200</span>
+            <div class="bg-violet-500 rounded-8 w-200 h-200"></div>
+          </div>
+        </div>
+        <p class="text-center text-13 text-zinc-600 mt-32">
+          All boxes use <code class="text-zinc-400">w-*</code> and
+          <code class="text-zinc-400">h-*</code>
+          — they scale proportionally with the viewport.
+        </p>
+      </div>
+    </section>
 
-  <!-- Footer -->
+    <!-- HOW IT WORKS -->
+    <section id="how-it-works" class="py-120 border-t border-white/5">
+      <div class="container">
+        <div class="text-center mb-72">
+          <p
+            class="mono text-13 text-violet-400 uppercase mb-16"
+            style="letter-spacing: 0.1em"
+          >
+            How it works
+          </p>
+          <h2 class="text-52 font-bold mb-20" style="letter-spacing: -0.025em">
+            One formula. Every utility.
+          </h2>
+          <p
+            class="text-zinc-400 mx-auto"
+            style="font-size: 1.1rem; max-width: 480px; line-height: 1.7"
+          >
+            Every class applies the same formula under the hood, making every
+            property scale fluidly with the viewport.
+          </p>
+        </div>
 
+        <!-- Formula card -->
+        <div
+          class="bg-white/[0.03] border border-white/10 rounded-24 p-56 mb-64 max-w-860 mx-auto"
+        >
+          <p class="text-center mono text-zinc-500 text-13 mb-20">
+            Generated CSS
+          </p>
+          <div
+            class="bg-zinc-900 border border-white/10 rounded-14 px-32 py-28 text-center mono mb-40"
+            style="overflow-x: auto; white-space: nowrap"
+          >
+            <span class="text-zinc-500">property: </span>calc(<span
+              style="color: #a78bfa"
+              >value</span
+            >
+            * clamp(0px, 100vw, <span style="color: #34d399">max-width</span>) /
+            <span style="color: #fbbf24">base-width</span>);
+          </div>
+          <div
+            class="grid gap-20"
+            style="grid-template-columns: repeat(3, 1fr)"
+          >
+            <div
+              class="bg-violet-500/10 border border-violet-500/20 rounded-14 p-28 text-center"
+            >
+              <p class="mono font-bold text-22 mb-10" style="color: #a78bfa">
+                value
+              </p>
+              <p
+                class="text-zinc-400"
+                style="font-size: 0.875rem; line-height: 1.6"
+              >
+                The number in your class.<br />
+                <code class="text-white">100</code> in
+                <code class="text-white">w-100</code>.
+              </p>
+            </div>
+            <div
+              class="bg-emerald-500/10 border border-emerald-500/20 rounded-14 p-28 text-center"
+            >
+              <p class="mono font-bold text-22 mb-10" style="color: #34d399">
+                1440px
+              </p>
+              <p
+                class="text-zinc-400"
+                style="font-size: 0.875rem; line-height: 1.6"
+              >
+                Max viewport cap. Values stop growing above this width.
+              </p>
+            </div>
+            <div
+              class="bg-amber-500/10 border border-amber-500/20 rounded-14 p-28 text-center"
+            >
+              <p class="mono font-bold text-22 mb-10" style="color: #fbbf24">
+                1440
+              </p>
+              <p
+                class="text-zinc-400"
+                style="font-size: 0.875rem; line-height: 1.6"
+              >
+                Your design reference width. Override with
+                <code class="text-white">--window-width</code>.
+              </p>
+            </div>
+          </div>
+        </div>
 
-</body>
+        <!-- Scale reference bars -->
+        <div class="max-w-600 mx-auto">
+          <p class="text-center text-zinc-500 mono text-13 mb-28">
+            <code class="text-white">w-100</code> at different viewports
+          </p>
+          <div style="display: flex; flex-direction: column; gap: 14px">
+            <div class="flex items-center gap-16">
+              <span
+                class="mono text-13 text-zinc-500 shrink-0"
+                style="width: 68px"
+                >375px</span
+              >
+              <div
+                class="flex-1 rounded-full overflow-hidden"
+                style="background: rgba(255, 255, 255, 0.05); height: 8px"
+              >
+                <div
+                  style="
+                    width: 26%;
+                    height: 8px;
+                    background: #6d28d9;
+                    border-radius: 9999px;
+                  "
+                ></div>
+              </div>
+              <span
+                class="mono text-13 text-zinc-400 shrink-0 text-right"
+                style="width: 54px"
+                >~26px</span
+              >
+            </div>
+            <div class="flex items-center gap-16">
+              <span
+                class="mono text-13 text-zinc-500 shrink-0"
+                style="width: 68px"
+                >768px</span
+              >
+              <div
+                class="flex-1 rounded-full overflow-hidden"
+                style="background: rgba(255, 255, 255, 0.05); height: 8px"
+              >
+                <div
+                  style="
+                    width: 53%;
+                    height: 8px;
+                    background: #7c3aed;
+                    border-radius: 9999px;
+                  "
+                ></div>
+              </div>
+              <span
+                class="mono text-13 text-zinc-400 shrink-0 text-right"
+                style="width: 54px"
+                >~53px</span
+              >
+            </div>
+            <div class="flex items-center gap-16">
+              <span
+                class="mono text-13 text-zinc-500 shrink-0"
+                style="width: 68px"
+                >1024px</span
+              >
+              <div
+                class="flex-1 rounded-full overflow-hidden"
+                style="background: rgba(255, 255, 255, 0.05); height: 8px"
+              >
+                <div
+                  style="
+                    width: 71%;
+                    height: 8px;
+                    background: #8b5cf6;
+                    border-radius: 9999px;
+                  "
+                ></div>
+              </div>
+              <span
+                class="mono text-13 text-zinc-400 shrink-0 text-right"
+                style="width: 54px"
+                >~71px</span
+              >
+            </div>
+            <div class="flex items-center gap-16">
+              <span
+                class="mono text-13 text-zinc-500 shrink-0"
+                style="width: 68px"
+                >1440px</span
+              >
+              <div
+                class="flex-1 rounded-full overflow-hidden"
+                style="background: rgba(255, 255, 255, 0.05); height: 8px"
+              >
+                <div
+                  style="
+                    width: 100%;
+                    height: 8px;
+                    background: #a78bfa;
+                    border-radius: 9999px;
+                  "
+                ></div>
+              </div>
+              <span
+                class="mono text-13 text-zinc-400 shrink-0 text-right"
+                style="width: 54px"
+                >100px ✓</span
+              >
+            </div>
+            <div class="flex items-center gap-16">
+              <span
+                class="mono text-13 text-zinc-500 shrink-0"
+                style="width: 68px"
+                >1920px</span
+              >
+              <div
+                class="flex-1 rounded-full overflow-hidden"
+                style="background: rgba(255, 255, 255, 0.05); height: 8px"
+              >
+                <div
+                  style="
+                    width: 100%;
+                    height: 8px;
+                    background: #a78bfa;
+                    border-radius: 9999px;
+                  "
+                ></div>
+              </div>
+              <span
+                class="mono text-13 text-zinc-400 shrink-0 text-right"
+                style="width: 54px"
+                >100px ✓</span
+              >
+            </div>
+          </div>
+          <p class="text-center text-13 text-zinc-600 mt-20">
+            Values are capped at the base width — no overflow on ultra-wide
+            screens.
+          </p>
+        </div>
+      </div>
+    </section>
 
+    <!-- FEATURES -->
+    <section id="features" class="py-120 border-t border-white/5">
+      <div class="container">
+        <div class="text-center mb-72">
+          <p
+            class="mono text-13 text-violet-400 uppercase mb-16"
+            style="letter-spacing: 0.1em"
+          >
+            Features
+          </p>
+          <h2 class="text-52 font-bold" style="letter-spacing: -0.025em">
+            Why tailwindcss-calc?
+          </h2>
+        </div>
+
+        <div class="grid gap-24" style="grid-template-columns: repeat(2, 1fr)">
+          <div
+            class="bg-white/[0.03] border border-white/10 rounded-20 p-40 hover:border-white/20 transition"
+          >
+            <div
+              class="w-48 h-48 bg-violet-500/15 rounded-14 flex items-center justify-center mb-28"
+              style="font-size: 22px"
+            >
+              ✦
+            </div>
+            <h3 class="font-bold text-20 mb-12">100% CSS</h3>
+            <p
+              class="text-zinc-400"
+              style="font-size: 0.95rem; line-height: 1.7"
+            >
+              No JavaScript. No runtime. Built entirely with native CSS features
+              —
+              <code class="text-white">@utility</code>,
+              <code class="text-white">calc()</code> and
+              <code class="text-white">clamp()</code>. Pure, zero-overhead
+              performance.
+            </p>
+          </div>
+
+          <div
+            class="bg-white/[0.03] border border-white/10 rounded-20 p-40 hover:border-white/20 transition"
+          >
+            <div
+              class="w-48 h-48 bg-emerald-500/15 rounded-14 flex items-center justify-center mb-28"
+              style="font-size: 22px"
+            >
+              ⟷
+            </div>
+            <h3 class="font-bold text-20 mb-12">Fluid scaling</h3>
+            <p
+              class="text-zinc-400"
+              style="font-size: 0.95rem; line-height: 1.7"
+            >
+              Design at a fixed reference width and every screen gets a
+              perfectly proportional result. No breakpoints. No media queries.
+              Just math.
+            </p>
+          </div>
+
+          <div
+            class="bg-white/[0.03] border border-white/10 rounded-20 p-40 hover:border-white/20 transition"
+          >
+            <div
+              class="w-48 h-48 bg-amber-500/15 rounded-14 flex items-center justify-center mb-28"
+              style="font-size: 22px"
+            >
+              ⚙
+            </div>
+            <h3 class="font-bold text-20 mb-12">Fully customizable</h3>
+            <p
+              class="text-zinc-400"
+              style="font-size: 0.95rem; line-height: 1.7"
+            >
+              Override the reference width with a single CSS variable. Set
+              <code class="text-white">--window-width: 1920</code> and every
+              utility instantly recalculates to match your design system.
+            </p>
+          </div>
+
+          <div
+            class="bg-white/[0.03] border border-white/10 rounded-20 p-40 hover:border-white/20 transition"
+          >
+            <div
+              class="w-48 h-48 bg-rose-500/15 rounded-14 flex items-center justify-center mb-28"
+              style="font-size: 22px"
+            >
+              −
+            </div>
+            <h3 class="font-bold text-20 mb-12">Negative values</h3>
+            <p
+              class="text-zinc-400"
+              style="font-size: 0.95rem; line-height: 1.7"
+            >
+              All compatible utilities support negative variants. Use
+              <code class="text-white">-mt-20</code>,
+              <code class="text-white">-top-40</code>,
+              <code class="text-white">-translate-x-50</code> — all properly
+              scaled.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- UTILITIES -->
+    <section id="utilities" class="py-120 border-t border-white/5">
+      <div class="container">
+        <div class="text-center mb-72">
+          <p
+            class="mono text-13 text-violet-400 uppercase mb-16"
+            style="letter-spacing: 0.1em"
+          >
+            Available utilities
+          </p>
+          <h2 class="text-52 font-bold" style="letter-spacing: -0.025em">
+            Everything you need.
+          </h2>
+        </div>
+
+        <div class="grid gap-16" style="grid-template-columns: repeat(3, 1fr)">
+          <div class="bg-white/[0.03] border border-white/8 rounded-16 p-32">
+            <p class="font-semibold mb-16 text-16">Sizing</p>
+            <div class="flex flex-wrap gap-8">
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >w-*</span
+              >
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >h-*</span
+              >
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >size-*</span
+              >
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >min-w-*</span
+              >
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >max-w-*</span
+              >
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >min-h-*</span
+              >
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >max-h-*</span
+              >
+            </div>
+          </div>
+
+          <div class="bg-white/[0.03] border border-white/8 rounded-16 p-32">
+            <p class="font-semibold mb-16 text-16">Padding</p>
+            <div class="flex flex-wrap gap-8">
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >p-*</span
+              >
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >px-*</span
+              >
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >py-*</span
+              >
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >pt-*</span
+              >
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >pb-*</span
+              >
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >pl-*</span
+              >
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >pr-*</span
+              >
+            </div>
+          </div>
+
+          <div class="bg-white/[0.03] border border-white/8 rounded-16 p-32">
+            <p class="font-semibold mb-16 text-16">
+              Margin
+              <span class="mono text-11 text-violet-400 ml-6">+ negative</span>
+            </p>
+            <div class="flex flex-wrap gap-8">
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >m-*</span
+              >
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >mx-*</span
+              >
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >my-*</span
+              >
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >mt-*</span
+              >
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >mb-*</span
+              >
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >ml-*</span
+              >
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >mr-*</span
+              >
+              <span
+                class="mono text-12 bg-violet-500/10 border border-violet-500/20 px-10 py-6 rounded-6 text-violet-400"
+                >-m-*</span
+              >
+              <span
+                class="mono text-12 bg-violet-500/10 border border-violet-500/20 px-10 py-6 rounded-6 text-violet-400"
+                >-mt-*</span
+              >
+              <span
+                class="mono text-12 bg-violet-500/10 border border-violet-500/20 px-10 py-6 rounded-6 text-violet-400"
+                >-mb-*</span
+              >
+              <span
+                class="mono text-12 bg-violet-500/10 border border-violet-500/20 px-10 py-6 rounded-6 text-violet-400"
+                >-mx-*</span
+              >
+            </div>
+          </div>
+
+          <div class="bg-white/[0.03] border border-white/8 rounded-16 p-32">
+            <p class="font-semibold mb-16 text-16">
+              Typography
+              <span class="mono text-11 text-violet-400 ml-6">+ negative</span>
+            </p>
+            <div class="flex flex-wrap gap-8">
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >text-*</span
+              >
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >leading-*</span
+              >
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >tracking-*</span
+              >
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >word-spacing-*</span
+              >
+              <span
+                class="mono text-12 bg-violet-500/10 border border-violet-500/20 px-10 py-6 rounded-6 text-violet-400"
+                >-tracking-*</span
+              >
+              <span
+                class="mono text-12 bg-violet-500/10 border border-violet-500/20 px-10 py-6 rounded-6 text-violet-400"
+                >-word-spacing-*</span
+              >
+            </div>
+          </div>
+
+          <div class="bg-white/[0.03] border border-white/8 rounded-16 p-32">
+            <p class="font-semibold mb-16 text-16">
+              Positioning
+              <span class="mono text-11 text-violet-400 ml-6">+ negative</span>
+            </p>
+            <div class="flex flex-wrap gap-8">
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >top-*</span
+              >
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >bottom-*</span
+              >
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >left-*</span
+              >
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >right-*</span
+              >
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >inset-*</span
+              >
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >inset-x-*</span
+              >
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >inset-y-*</span
+              >
+              <span
+                class="mono text-12 bg-violet-500/10 border border-violet-500/20 px-10 py-6 rounded-6 text-violet-400"
+                >-top-*</span
+              >
+              <span
+                class="mono text-12 bg-violet-500/10 border border-violet-500/20 px-10 py-6 rounded-6 text-violet-400"
+                >-left-*</span
+              >
+              <span
+                class="mono text-12 bg-violet-500/10 border border-violet-500/20 px-10 py-6 rounded-6 text-violet-400"
+                >-inset-*</span
+              >
+            </div>
+          </div>
+
+          <div class="bg-white/[0.03] border border-white/8 rounded-16 p-32">
+            <p class="font-semibold mb-16 text-16">
+              Transform
+              <span class="mono text-11 text-violet-400 ml-6">+ negative</span>
+            </p>
+            <div class="flex flex-wrap gap-8">
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >translate-x-*</span
+              >
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >translate-y-*</span
+              >
+              <span
+                class="mono text-12 bg-violet-500/10 border border-violet-500/20 px-10 py-6 rounded-6 text-violet-400"
+                >-translate-x-*</span
+              >
+              <span
+                class="mono text-12 bg-violet-500/10 border border-violet-500/20 px-10 py-6 rounded-6 text-violet-400"
+                >-translate-y-*</span
+              >
+            </div>
+          </div>
+
+          <div class="bg-white/[0.03] border border-white/8 rounded-16 p-32">
+            <p class="font-semibold mb-16 text-16">Gap</p>
+            <div class="flex flex-wrap gap-8">
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >gap-*</span
+              >
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >gap-x-*</span
+              >
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >gap-y-*</span
+              >
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >row-gap-*</span
+              >
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >col-gap-*</span
+              >
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >grid-gap-*</span
+              >
+            </div>
+          </div>
+
+          <div class="bg-white/[0.03] border border-white/8 rounded-16 p-32">
+            <p class="font-semibold mb-16 text-16">Borders & Radius</p>
+            <div class="flex flex-wrap gap-8">
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >rounded-*</span
+              >
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >border-w-*</span
+              >
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >border-t-*</span
+              >
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >border-b-*</span
+              >
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >border-l-*</span
+              >
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >border-r-*</span
+              >
+            </div>
+          </div>
+
+          <div class="bg-white/[0.03] border border-white/8 rounded-16 p-32">
+            <p class="font-semibold mb-16 text-16">
+              Misc
+              <span class="mono text-11 text-violet-400 ml-4">+ negative</span>
+            </p>
+            <div class="flex flex-wrap gap-8">
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >container</span
+              >
+              <span
+                class="mono text-12 bg-white/5 px-10 py-6 rounded-6 text-zinc-400"
+                >outline-offset-*</span
+              >
+              <span
+                class="mono text-12 bg-violet-500/10 border border-violet-500/20 px-10 py-6 rounded-6 text-violet-400"
+                >-outline-offset-*</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- INSTALL -->
+    <section id="install" class="py-120 border-t border-white/5">
+      <div class="container">
+        <div class="text-center mb-72">
+          <p
+            class="mono text-13 text-violet-400 uppercase mb-16"
+            style="letter-spacing: 0.1em"
+          >
+            Get started
+          </p>
+          <h2 class="text-52 font-bold mb-20" style="letter-spacing: -0.025em">
+            Up and running in 2 steps.
+          </h2>
+        </div>
+
+        <div
+          class="max-w-720 mx-auto"
+          style="display: flex; flex-direction: column; gap: 24px"
+        >
+          <!-- Step 1 -->
+          <div class="bg-white/[0.03] border border-white/10 rounded-20 p-40">
+            <div class="flex items-center gap-16 mb-24">
+              <span
+                class="w-32 h-32 rounded-full bg-violet-600 flex items-center justify-center mono font-bold text-14 shrink-0"
+                >1</span
+              >
+              <p class="font-semibold text-18">Install the package</p>
+            </div>
+            <div
+              class="bg-zinc-900 border border-white/10 rounded-12 px-24 py-20 mono text-14 flex items-center gap-12"
+            >
+              <span class="text-zinc-500">$</span>
+              <span class="text-white">npm install tailwindcss-calc</span>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="bg-white/[0.03] border border-white/10 rounded-20 p-40">
+            <div class="flex items-center gap-16 mb-24">
+              <span
+                class="w-32 h-32 rounded-full bg-violet-600 flex items-center justify-center mono font-bold text-14 shrink-0"
+                >2</span
+              >
+              <p class="font-semibold text-18">Import in your CSS file</p>
+            </div>
+            <div
+              class="bg-zinc-900 border border-white/10 rounded-12 px-24 py-20 mono text-14"
+              style="line-height: 1.8"
+            >
+              <span class="text-violet-400">@import</span>
+              <span class="text-emerald-400">"tailwindcss"</span
+              ><span class="text-zinc-500">;</span><br />
+              <span class="text-violet-400">@import</span>
+              <span class="text-emerald-400">"tailwindcss-calc"</span
+              ><span class="text-zinc-500">;</span>
+            </div>
+          </div>
+
+          <!-- Done -->
+          <div
+            class="bg-violet-600/10 border border-violet-500/30 rounded-20 p-32 text-center"
+          >
+            <p class="text-18 font-semibold mb-8">That's it. 🎉</p>
+            <p class="text-zinc-400" style="font-size: 0.95rem">
+              All utilities are now available. Use
+              <code class="text-white">w-100</code>,
+              <code class="text-white">p-24</code>,
+              <code class="text-white">text-48</code>
+              and any other numeric class — they all scale with the viewport.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-64 border-t border-white/5">
+      <div class="container flex items-center justify-between">
+        <span class="mono text-14 text-zinc-600">tailwindcss-calc</span>
+        <div class="flex items-center gap-24">
+          <a
+            href="https://www.npmjs.com/package/tailwindcss-calc"
+            target="_blank"
+            class="text-13 text-zinc-600 hover:text-zinc-300 tr"
+            >npm</a
+          >
+          <a
+            href="https://github.com/oswaldohuillca/tailwindcss-calc"
+            target="_blank"
+            class="text-13 text-zinc-600 hover:text-zinc-300 tr"
+            >GitHub</a
+          >
+          <a
+            href="https://tailwindcss.com/docs"
+            target="_blank"
+            class="text-13 text-zinc-600 hover:text-zinc-300 tr"
+            >Tailwind Docs</a
+          >
+        </div>
+        <span class="text-13 text-zinc-700">MIT License</span>
+      </div>
+    </footer>
+  </body>
 </html>
