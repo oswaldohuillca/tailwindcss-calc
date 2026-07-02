@@ -259,13 +259,15 @@ MIT
 
 ## 🚀 Publishing & Releases
 
-This project uses [changelogen](https://unjs.io/packages/changelogen) for automatic changelog generation, npm publishing, and GitHub releases.
+This project uses [changelogen](https://unjs.io/packages/changelogen) for automatic changelog generation, and a GitHub Action for npm publishing and GitHub releases.
+
+**Publishing is handled entirely by CI.** The local release command only bumps the version, updates the changelog, and pushes the commit + tag. Pushing a `v*` tag triggers the workflow, which publishes to npm and creates the GitHub release. This keeps the npm token in GitHub secrets only — never on your machine.
 
 ### Release Workflow
 
 1. **Make changes** following conventional commits
-2. **Run release command** (automatically bumps version, updates CHANGELOG, commits, creates git tag, publishes to npm, and pushes to GitHub)
-3. **GitHub Action** automatically creates GitHub release when tag is pushed
+2. **Run the release command** — bumps version, updates `CHANGELOG.md`, commits `chore(release)`, creates the git tag, and pushes both to GitHub
+3. **GitHub Action** (triggered by the `v*` tag) creates the GitHub release **and publishes to npm**
 
 ### Release Commands
 
@@ -290,15 +292,20 @@ npm run release:gh
 
 ### What Happens on Release
 
+Locally (`bun run release` / `npm run release`):
+
 1. ✅ Analyzes commits since last release
 2. ✅ Determines version bump (semver)
 3. ✅ Updates `CHANGELOG.md`
 4. ✅ Updates version in `package.json`
-5. ✅ Creates git commit with changes
+5. ✅ Creates git commit `chore(release): vX.Y.Z`
 6. ✅ Creates git tag (e.g., `v1.0.0`)
-7. ✅ Pushes to GitHub
-8. ✅ Publishes to npm
-9. ✅ GitHub Action creates release (automatically)
+7. ✅ Pushes commit + tag to GitHub
+
+Then, automatically in CI (on the pushed `v*` tag):
+
+8. ✅ GitHub Action creates the GitHub release
+9. ✅ GitHub Action publishes to npm (using the `NPM_TOKEN` secret)
 
 ### Commit Convention
 
@@ -329,11 +336,13 @@ BREAKING CHANGE: This changes the API
 
 #### For npm Publishing
 
+Publishing runs in CI, so no local npm login is needed. You only need the token configured once in GitHub:
+
 1. **Create npm account** at [npmjs.com](https://www.npmjs.com/)
-2. **Login locally**: `npm login`
-3. **Set npm token in GitHub** (for CI):
-   - Create token at [npmjs.com/settings/tokens](https://www.npmjs.com/settings/tokens)
-   - Add as `NPM_TOKEN` in GitHub repository secrets
+2. **Create an Automation token** at [npmjs.com/settings/tokens](https://www.npmjs.com/settings/tokens) (type **Automation**, with publish access — a read-only token will fail with a 404)
+3. **Add it as `NPM_TOKEN`** in GitHub → Settings → Secrets and variables → Actions
+
+The committed `.npmrc` reads this via `${NODE_AUTH_TOKEN}`, which the workflow populates from the `NPM_TOKEN` secret.
 
 #### For GitHub Releases
 

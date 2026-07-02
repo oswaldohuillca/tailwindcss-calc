@@ -4,21 +4,16 @@ This guide explains how to release a new version of `tailwindcss-calc` to npm an
 
 ## Prerequisites
 
+Publishing runs in CI, so no local npm login is required.
+
 ### One-time Setup
 
-1. **npm Account**
+1. **npm Account & Automation token**
    - Create account at [npmjs.com](https://www.npmjs.com/)
-   - Login locally: `npm login`
+   - Create an **Automation** token at [npmjs.com/settings/tokens](https://www.npmjs.com/settings/tokens) with publish access (a read-only token fails with a 404)
+   - Add it as the **`NPM_TOKEN`** secret in GitHub → Settings → Secrets and variables → Actions
 
-2. **GitHub Token** (for CI - optional)
-   - Go to GitHub Settings → Developer settings → Personal access tokens
-   - Create token with `repo` and `packages` permissions
-   - Add as `NPM_TOKEN` in repository secrets
-
-3. **Install changelogen**
-   ```bash
-   npm install -g changelogen
-   ```
+2. **changelogen** is a dev dependency — just run `bun install` (or `npm install`).
 
 ## Release Process
 
@@ -60,6 +55,8 @@ npm run release:major   # x.0.0 - breaking changes
 
 ### What Happens:
 
+Locally, the release command:
+
 1. ✅ Analyzes commits since last release
 2. ✅ Determines version bump automatically
 3. ✅ Updates `CHANGELOG.md` with grouped changes
@@ -67,8 +64,15 @@ npm run release:major   # x.0.0 - breaking changes
 5. ✅ Creates git commit: `chore(release): v1.0.0`
 6. ✅ Creates git tag: `v1.0.0`
 7. ✅ Pushes commit and tag to GitHub
-8. ✅ Publishes package to npm
-9. ✅ GitHub Action creates GitHub release (automatic)
+
+Then the GitHub Action (triggered by the `v*` tag) automatically:
+
+8. ✅ Creates the GitHub release
+9. ✅ Publishes the package to npm (using the `NPM_TOKEN` secret)
+
+> **Note:** Publishing happens **only in CI**, not locally — the release
+> scripts intentionally omit `--publish`. This keeps the npm token in GitHub
+> secrets and avoids double-publish conflicts.
 
 ### Step 3: Verify
 
