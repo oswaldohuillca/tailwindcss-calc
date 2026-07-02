@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file.
 
+## v0.0.6
+
+[compare changes](https://github.com/oswaldohuillca/tailwindcss-calc/compare/v0.0.5...v0.0.6)
+
+### 🚀 Enhancements
+
+- Add rounded corner utilities, fix inset-x/y, dedupe scaling ([1e10350](https://github.com/oswaldohuillca/tailwindcss-calc/commit/1e10350))
+
+### 📖 Documentation
+
+- Sync README with mobile-first base and new utilities ([30a463d](https://github.com/oswaldohuillca/tailwindcss-calc/commit/30a463d))
+
+### 🏡 Chore
+
+- Publish from CI only and ignore bun.lock ([1813b35](https://github.com/oswaldohuillca/tailwindcss-calc/commit/1813b35))
+- **example:** Redesign demo with responsive mobile-first UI ([040be12](https://github.com/oswaldohuillca/tailwindcss-calc/commit/040be12))
+
+### ❤️ Contributors
+
+- Oswa <oswaldohuillca@gmail.com>
+
 ## v0.0.5
 
 [compare changes](https://github.com/oswaldohuillca/tailwindcss-calc/compare/v0.0.4...v0.0.5)
