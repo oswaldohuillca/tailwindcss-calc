@@ -35,7 +35,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/oswaldohuillca/tailwindcss-calc.git"
+    "url": "git+https://github.com/oswaldohuillca/tailwindcss-calc.git"
   },
   "bugs": {
     "url": "https://github.com/oswaldohuillca/tailwindcss-calc/issues"
