@@ -23,10 +23,10 @@
   "author": "Oswa <oswaldohuillca@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "release": "changelogen --release --push --publish",
-    "release:minor": "changelogen --minor --release --push --publish",
-    "release:major": "changelogen --major --release --push --publish",
-    "release:patch": "changelogen --patch --release --push --publish",
+    "release": "changelogen --release --push",
+    "release:minor": "changelogen --minor --release --push",
+    "release:major": "changelogen --major --release --push",
+    "release:patch": "changelogen --patch --release --push",
     "release:gh": "changelogen gh release",
     "changelog": "changelogen"
   },
