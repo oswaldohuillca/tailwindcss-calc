@@ -9,7 +9,12 @@
 @layer theme {
   :root {
     --window-width: 375;
-    --window-max-width: var(--window-width) * 1px;
+    --window-max-width: calc(var(--window-width) * 1px);
+
+    /* Shared scaling factor. Every utility below multiplies its numeric
+       value by this ratio, so the whole scaling formula lives in one place. */
+    --calc-ratio: clamp(0px, 100vw, var(--window-max-width)) /
+      var(--window-width);
   }
 
   @variant md {
@@ -32,444 +37,272 @@
 /* ============================================
    WIDTH & HEIGHT
    ============================================ */
-
 @utility w-* {
-  width: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  width: calc(--value(integer) * var(--calc-ratio));
 }
 
 @utility h-* {
-  height: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  height: calc(--value(integer) * var(--calc-ratio));
 }
 
 @utility size-* {
-  width: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
-  height: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  width: calc(--value(integer) * var(--calc-ratio));
+  height: calc(--value(integer) * var(--calc-ratio));
 }
 
 /* ============================================
    MIN/MAX WIDTH & HEIGHT
    ============================================ */
 @utility min-w-* {
-  min-width: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  min-width: calc(--value(integer) * var(--calc-ratio));
 }
 
 @utility max-w-* {
-  max-width: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  max-width: calc(--value(integer) * var(--calc-ratio));
 }
 
 @utility min-h-* {
-  min-height: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  min-height: calc(--value(integer) * var(--calc-ratio));
 }
 
 @utility max-h-* {
-  max-height: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  max-height: calc(--value(integer) * var(--calc-ratio));
 }
 
 /* ============================================
    PADDING
    ============================================ */
 @utility p-* {
-  padding: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  padding: calc(--value(integer) * var(--calc-ratio));
 }
 
 @utility px-* {
-  padding-inline: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  padding-inline: calc(--value(integer) * var(--calc-ratio));
 }
 
 @utility py-* {
-  padding-block: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  padding-block: calc(--value(integer) * var(--calc-ratio));
 }
 
 @utility pt-* {
-  padding-top: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  padding-top: calc(--value(integer) * var(--calc-ratio));
 }
 
 @utility pb-* {
-  padding-bottom: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  padding-bottom: calc(--value(integer) * var(--calc-ratio));
 }
 
 @utility pl-* {
-  padding-left: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  padding-left: calc(--value(integer) * var(--calc-ratio));
 }
 
 @utility pr-* {
-  padding-right: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  padding-right: calc(--value(integer) * var(--calc-ratio));
 }
 
 /* ============================================
    MARGIN
    ============================================ */
 @utility m-* {
-  margin: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  margin: calc(--value(integer) * var(--calc-ratio));
 }
 
 @utility -m-* {
-  margin: calc(
-    --value(integer) * -1 * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  margin: calc(--value(integer) * -1 * var(--calc-ratio));
 }
 
 @utility mx-* {
-  margin-inline: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  margin-inline: calc(--value(integer) * var(--calc-ratio));
 }
 
 @utility -mx-* {
-  margin-inline: calc(
-    --value(integer) * -1 * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  margin-inline: calc(--value(integer) * -1 * var(--calc-ratio));
 }
 
 @utility my-* {
-  margin-block: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  margin-block: calc(--value(integer) * var(--calc-ratio));
 }
 
 @utility -my-* {
-  margin-block: calc(
-    --value(integer) * -1 * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  margin-block: calc(--value(integer) * -1 * var(--calc-ratio));
 }
 
 @utility mt-* {
-  margin-top: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  margin-top: calc(--value(integer) * var(--calc-ratio));
 }
 
 @utility -mt-* {
-  margin-top: calc(
-    --value(integer) * -1 * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  margin-top: calc(--value(integer) * -1 * var(--calc-ratio));
 }
 
 @utility mb-* {
-  margin-bottom: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  margin-bottom: calc(--value(integer) * var(--calc-ratio));
 }
 
 @utility -mb-* {
-  margin-bottom: calc(
-    --value(integer) * -1 * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  margin-bottom: calc(--value(integer) * -1 * var(--calc-ratio));
 }
 
 @utility ml-* {
-  margin-left: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  margin-left: calc(--value(integer) * var(--calc-ratio));
 }
 
 @utility -ml-* {
-  margin-left: calc(
-    --value(integer) * -1 * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  margin-left: calc(--value(integer) * -1 * var(--calc-ratio));
 }
 
 @utility mr-* {
-  margin-right: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  margin-right: calc(--value(integer) * var(--calc-ratio));
 }
 
 @utility -mr-* {
-  margin-right: calc(
-    --value(integer) * -1 * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  margin-right: calc(--value(integer) * -1 * var(--calc-ratio));
 }
 
 /* ============================================
    TYPOGRAPHY
    ============================================ */
 @utility text-* {
-  font-size: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  font-size: calc(--value(integer) * var(--calc-ratio));
 }
 
 @utility leading-* {
-  line-height: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  line-height: calc(--value(integer) * var(--calc-ratio));
 }
 
 @utility tracking-* {
-  letter-spacing: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  letter-spacing: calc(--value(integer) * var(--calc-ratio));
 }
 
 @utility -tracking-* {
-  letter-spacing: calc(
-    --value(integer) * -1 * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  letter-spacing: calc(--value(integer) * -1 * var(--calc-ratio));
 }
 
 @utility word-spacing-* {
-  word-spacing: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  word-spacing: calc(--value(integer) * var(--calc-ratio));
 }
 
 @utility -word-spacing-* {
-  word-spacing: calc(
-    --value(integer) * -1 * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  word-spacing: calc(--value(integer) * -1 * var(--calc-ratio));
 }
 
 /* ============================================
    GAP
    ============================================ */
 @utility gap-* {
-  gap: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  gap: calc(--value(integer) * var(--calc-ratio));
 }
 
 @utility gap-x-* {
-  column-gap: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  column-gap: calc(--value(integer) * var(--calc-ratio));
 }
 
 @utility gap-y-* {
-  row-gap: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
-}
-
-@utility grid-gap-* {
-  grid-gap: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  row-gap: calc(--value(integer) * var(--calc-ratio));
 }
 
 @utility col-gap-* {
-  column-gap: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  column-gap: calc(--value(integer) * var(--calc-ratio));
 }
 
 @utility row-gap-* {
-  row-gap: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  row-gap: calc(--value(integer) * var(--calc-ratio));
 }
 
 /* ============================================
    BORDER RADIUS
    ============================================ */
 @utility rounded-* {
-  border-radius: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  border-radius: calc(--value(integer) * var(--calc-ratio));
+}
+
+@utility rounded-t-* {
+  border-top-left-radius: calc(--value(integer) * var(--calc-ratio));
+  border-top-right-radius: calc(--value(integer) * var(--calc-ratio));
+}
+
+@utility rounded-b-* {
+  border-bottom-left-radius: calc(--value(integer) * var(--calc-ratio));
+  border-bottom-right-radius: calc(--value(integer) * var(--calc-ratio));
+}
+
+@utility rounded-l-* {
+  border-top-left-radius: calc(--value(integer) * var(--calc-ratio));
+  border-bottom-left-radius: calc(--value(integer) * var(--calc-ratio));
+}
+
+@utility rounded-r-* {
+  border-top-right-radius: calc(--value(integer) * var(--calc-ratio));
+  border-bottom-right-radius: calc(--value(integer) * var(--calc-ratio));
 }
 
 /* ============================================
    POSITIONING
    ============================================ */
 @utility top-* {
-  top: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  top: calc(--value(integer) * var(--calc-ratio));
 }
 
 @utility -top-* {
-  top: calc(
-    --value(integer) * -1 * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  top: calc(--value(integer) * -1 * var(--calc-ratio));
 }
 
 @utility bottom-* {
-  bottom: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  bottom: calc(--value(integer) * var(--calc-ratio));
 }
 
 @utility -bottom-* {
-  bottom: calc(
-    --value(integer) * -1 * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  bottom: calc(--value(integer) * -1 * var(--calc-ratio));
 }
 
 @utility left-* {
-  left: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  left: calc(--value(integer) * var(--calc-ratio));
 }
 
 @utility -left-* {
-  left: calc(
-    --value(integer) * -1 * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  left: calc(--value(integer) * -1 * var(--calc-ratio));
 }
 
 @utility right-* {
-  right: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  right: calc(--value(integer) * var(--calc-ratio));
 }
 
 @utility -right-* {
-  right: calc(
-    --value(integer) * -1 * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  right: calc(--value(integer) * -1 * var(--calc-ratio));
 }
 
 /* ============================================
    INSET
    ============================================ */
 @utility inset-* {
-  inset: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  inset: calc(--value(integer) * var(--calc-ratio));
 }
 
 @utility -inset-* {
-  inset: calc(
-    --value(integer) * -1 * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  inset: calc(--value(integer) * -1 * var(--calc-ratio));
 }
 
 @utility inset-x-* {
-  inset-left: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
-  inset-right: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  inset-inline: calc(--value(integer) * var(--calc-ratio));
 }
 
 @utility -inset-x-* {
-  inset-left: calc(
-    --value(integer) * -1 * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
-  inset-right: calc(
-    --value(integer) * -1 * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  inset-inline: calc(--value(integer) * -1 * var(--calc-ratio));
 }
 
 @utility inset-y-* {
-  inset-top: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
-  inset-bottom: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  inset-block: calc(--value(integer) * var(--calc-ratio));
 }
 
 @utility -inset-y-* {
-  inset-top: calc(
-    --value(integer) * -1 * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
-  inset-bottom: calc(
-    --value(integer) * -1 * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  inset-block: calc(--value(integer) * -1 * var(--calc-ratio));
 }
 
 /* ============================================
    TRANSFORM
    ============================================ */
 @utility translate-x-* {
-  --tw-translate-x: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  --tw-translate-x: calc(--value(integer) * var(--calc-ratio));
   transform: translate(var(--tw-translate-x), var(--tw-translate-y, 0))
     rotate(var(--tw-rotate, 0)) skewX(var(--tw-skew-x, 0))
     skewY(var(--tw-skew-y, 0)) scaleX(var(--tw-scale-x, 1))
@@ -477,10 +310,7 @@
 }
 
 @utility -translate-x-* {
-  --tw-translate-x: calc(
-    --value(integer) * -1 * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  --tw-translate-x: calc(--value(integer) * -1 * var(--calc-ratio));
   transform: translate(var(--tw-translate-x), var(--tw-translate-y, 0))
     rotate(var(--tw-rotate, 0)) skewX(var(--tw-skew-x, 0))
     skewY(var(--tw-skew-y, 0)) scaleX(var(--tw-scale-x, 1))
@@ -488,10 +318,7 @@
 }
 
 @utility translate-y-* {
-  --tw-translate-y: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  --tw-translate-y: calc(--value(integer) * var(--calc-ratio));
   transform: translate(var(--tw-translate-x, 0), var(--tw-translate-y))
     rotate(var(--tw-rotate, 0)) skewX(var(--tw-skew-x, 0))
     skewY(var(--tw-skew-y, 0)) scaleX(var(--tw-scale-x, 1))
@@ -499,10 +326,7 @@
 }
 
 @utility -translate-y-* {
-  --tw-translate-y: calc(
-    --value(integer) * -1 * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  --tw-translate-y: calc(--value(integer) * -1 * var(--calc-ratio));
   transform: translate(var(--tw-translate-x, 0), var(--tw-translate-y))
     rotate(var(--tw-rotate, 0)) skewX(var(--tw-skew-x, 0))
     skewY(var(--tw-skew-y, 0)) scaleX(var(--tw-scale-x, 1))
@@ -513,53 +337,32 @@
    BORDER WIDTH
    ============================================ */
 @utility border-w-* {
-  border-width: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  border-width: calc(--value(integer) * var(--calc-ratio));
 }
 
 @utility border-t-* {
-  border-top-width: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  border-top-width: calc(--value(integer) * var(--calc-ratio));
 }
 
 @utility border-r-* {
-  border-right-width: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  border-right-width: calc(--value(integer) * var(--calc-ratio));
 }
 
 @utility border-b-* {
-  border-bottom-width: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  border-bottom-width: calc(--value(integer) * var(--calc-ratio));
 }
 
 @utility border-l-* {
-  border-left-width: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  border-left-width: calc(--value(integer) * var(--calc-ratio));
 }
 
 /* ============================================
    OUTLINE
    ============================================ */
 @utility outline-offset-* {
-  outline-offset: calc(
-    --value(integer) * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  outline-offset: calc(--value(integer) * var(--calc-ratio));
 }
 
 @utility -outline-offset-* {
-  outline-offset: calc(
-    --value(integer) * -1 * clamp(0px, 100vw, var(--window-max-width)) /
-      var(--window-width)
-  );
+  outline-offset: calc(--value(integer) * -1 * var(--calc-ratio));
 }
