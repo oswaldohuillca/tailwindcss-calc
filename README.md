@@ -71,16 +71,20 @@ All utilities use this formula to scale based on viewport width:
 calc(value * clamp(0px, 100vw, max-width) / base-width)
 ```
 
-**Default configuration:**
-- Base width: `1920px`
-- Max width: `1920px`
+The formula is centralized in a single `--calc-ratio` variable, so every
+utility multiplies its numeric value by the same viewport-based factor.
+
+**Default configuration (mobile-first):**
+- Base width: `375px`
+- Max width: `375px`
+- At the `md` breakpoint (`≥48rem`) the base scales up to `1440px`
 
 This means `w-100` will be:
-- On mobile (375px): ~19.5px
-- On tablet (768px): ~40px
-- On desktop (1440px): ~75px
-- On large screens (1920px): 100px
-- On ultra-wide (>1920px): 100px (capped)
+- On a 320px screen: ~85px
+- At 375px (design base): 100px
+- Above 375px: 100px (capped) until the `md` breakpoint
+- At `md`, base becomes `1440`, so 768px → ~53px and 1440px → 100px
+- Above 1440px: 100px (capped)
 
 ## 📚 Available Utilities
 
@@ -117,13 +121,14 @@ This means `w-100` will be:
 ```html
 <div class="flex gap-20">...</div>
 <div class="grid gap-x-30 gap-y-40">...</div>
-<div class="grid grid-gap-25">...</div>
+<div class="grid col-gap-25 row-gap-25">...</div>
 ```
 
 ### Border Radius
 ```html
 <div class="rounded-10">...</div>
-<div class="rounded-20">...</div>
+<div class="rounded-t-20 rounded-b-10">...</div>
+<div class="rounded-l-8 rounded-r-8">...</div>
 ```
 
 ### Positioning
@@ -210,8 +215,10 @@ Copy the content from `src/plugin.css` and paste it into your main CSS file afte
 Edit `src/plugin.css` and modify the theme variables:
 
 ```css
-@theme {
-  --window-width: 1920;  /* Change base width */
+@layer theme {
+  :root {
+    --window-width: 1920; /* Change base width */
+  }
 }
 ```
 
