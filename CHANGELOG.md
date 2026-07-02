@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## v0.0.7
+
+[compare changes](https://github.com/oswaldohuillca/tailwindcss-calc/compare/v0.0.6...v0.0.7)
+
+### 🩹 Fixes
+
+- Correct npm auth token substitution in .npmrc for CI publish ([c5ec7bd](https://github.com/oswaldohuillca/tailwindcss-calc/commit/c5ec7bd))
+
+### ❤️ Contributors
+
+- Oswa <oswaldohuillca@gmail.com>
+
 ## v0.0.6
 
 [compare changes](https://github.com/oswaldohuillca/tailwindcss-calc/compare/v0.0.5...v0.0.6)
