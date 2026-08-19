@@ -2,13 +2,16 @@
 
 A Tailwind CSS v4 plugin built entirely with CSS that provides responsive utilities using `calc()` and `clamp()` based on viewport width.
 
+Write the pixel values from your mockup — `w-100`, `p-20`, `text-32` — and every one of them scales with the viewport. **One breakpoint, two design references, no JavaScript.**
+
 ## 🚀 Features
 
 - ✅ **100% CSS** - No JavaScript required
 - ✅ **Tailwind CSS v4** - Compatible with the latest version
 - ✅ **Viewport-based Scaling** - All utilities scale responsively using `calc()` and `clamp()`
 - ✅ **Comprehensive Utilities** - Width, height, padding, margin, typography, positioning, and more
-- ✅ **Customizable** - Adjust the base window width to fit your design
+- ✅ **One breakpoint** - `md` swaps the base reference; no `md:` ladder for sizing
+- ✅ **Customizable** - Set the base widths to match your own mockups
 
 ## 📦 Installation
 
@@ -28,6 +31,19 @@ After installation, create your CSS file:
 /* styles.css */
 @import "tailwindcss";
 @import "tailwindcss-calc";
+
+/* Your two design references — this is the entire configuration */
+@layer theme {
+  :root {
+    --window-width: 375; /* mobile mockup */
+  }
+
+  @variant md {
+    :root {
+      --window-width: 1440; /* desktop mockup */
+    }
+  }
+}
 ```
 
 Then use the utilities in your HTML:
@@ -39,6 +55,9 @@ Then use the utilities in your HTML:
 </div>
 ```
 
+The defaults are already `375` / `1440`, so you can skip the `@layer theme`
+block entirely if those match your mockups.
+
 ## 🛠️ Development
 
 To run the example locally:
@@ -46,7 +65,8 @@ To run the example locally:
 ### Development
 
 ```bash
-npm run dev
+bun run dev
+# or: npm run dev
 ```
 
 Open your browser at `http://localhost:5173` to see the demo.
@@ -54,13 +74,13 @@ Open your browser at `http://localhost:5173` to see the demo.
 ### Build
 
 ```bash
-npm run build
+bun run build
 ```
 
 ### Preview
 
 ```bash
-npm run preview
+bun run preview
 ```
 
 ## 🎨 How It Works
@@ -212,30 +232,77 @@ Copy the content from `src/plugin.css` and paste it into your main CSS file afte
 
 ## ⚙️ Customization
 
-Edit `src/plugin.css` and modify the theme variables:
+Override `--window-width` in **your own** stylesheet, after the import — there's
+no need to edit `src/plugin.css`. Set it once for mobile and once at `md`:
 
 ```css
+@import "tailwindcss";
+@import "tailwindcss-calc";
+
 @layer theme {
   :root {
-    --window-width: 1920; /* Change base width */
+    --window-width: 390; /* your mobile artboard */
+  }
+
+  @variant md {
+    :root {
+      --window-width: 1920; /* your desktop artboard */
+    }
   }
 }
 ```
+
+Match these to the artboard widths in your design file. Every utility
+recalculates automatically — there is nothing else to configure.
+
+### Use `@variant md`, not a raw media query
+
+```css
+/* ✅ mobile-first, matches the plugin */
+@variant md {
+  :root { --window-width: 1440; }
+}
+
+/* ❌ desktop-first, fights the plugin */
+@media (max-width: 768px) {
+  :root { --window-width: 375; }
+}
+```
+
+`@variant md` inherits your theme's `--breakpoint-md`, so the two stay in sync
+if you ever change it. A hard-coded `768px` drifts — and because `max-width:
+768px` and `min-width: 48rem` both match at exactly `768px`, which one wins
+comes down to source order rather than intent.
+
+### Sizing vs. layout
+
+Reach for `md:` variants only where the **layout** changes (a column becomes a
+row, an element appears). Sizing is already handled by the base-width swap, so
+`text-32` needs no `md:text-52` companion.
+
+### One caveat worth knowing
+
+Viewport-scaled font sizes ignore the reader's browser font-size preference.
+Use the scaled `text-*` utilities for display type, headings and UI chrome —
+where matching the mockup matters — and keep long-form body copy in `rem`.
 
 You can also add new utilities following the same pattern:
 
 ```css
 @utility custom-* {
-  custom-property: calc(--value(integer) * clamp(0px, 100vw, var(--window-max-width)) / var(--window-width));
+  custom-property: calc(--value(integer) * var(--calc-ratio));
 }
 ```
+
+`--calc-ratio` already holds `clamp(0px, 100vw, var(--window-max-width)) /
+var(--window-width)`, so reuse it rather than repeating the formula.
 
 ## 💡 Use Cases
 
 Perfect for:
 - **Fixed designs** that need to scale to different screen sizes
 - **Design-to-code** workflows where you want pixel-perfect scaling
-- **Responsive layouts** without multiple breakpoints
+- **Responsive layouts** driven by a single breakpoint instead of a `md:`/`lg:`/`xl:` ladder
 - **Prototyping** with design specs that use a fixed reference width
 
 ## 🌟 Advantages

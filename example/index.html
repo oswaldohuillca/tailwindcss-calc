@@ -3,779 +3,647 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>tailwindcss-calc — Responsive utilities without breakpoints</title>
+    <title>tailwindcss-calc — Design once. It fits every screen.</title>
     <meta
       name="description"
-      content="A Tailwind CSS v4 plugin built entirely in CSS. Every utility scales proportionally to the viewport with calc() and clamp() — no breakpoints, no JavaScript."
+      content="A Tailwind CSS v4 plugin built entirely in CSS. Write the pixel values from your mockup and every one of them scales with the viewport. One breakpoint, no JavaScript."
     />
+    <meta name="theme-color" content="#07070b" />
+    <link
+      rel="canonical"
+      href="https://github.com/oswaldohuillca/tailwindcss-calc"
+    />
+
+    <!-- Social preview -->
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="tailwindcss-calc — Design once. It fits every screen."
+    />
+    <meta
+      property="og:description"
+      content="Write the pixel values from your mockup — w-100, p-20, text-32 — and every one of them scales with the viewport. Pure CSS, no config, no JavaScript."
+    />
+    <meta
+      property="og:url"
+      content="https://github.com/oswaldohuillca/tailwindcss-calc"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="tailwindcss-calc — Design once. It fits every screen."
+    />
+    <meta
+      name="twitter:description"
+      content="Write the pixel values from your mockup and every one of them scales with the viewport. Pure CSS, no config, no JavaScript."
+    />
+
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%237c3aed'/%3E%3Ctext x='16' y='23' font-size='20' font-family='monospace' font-weight='bold' fill='white' text-anchor='middle'%3E~%3C/text%3E%3C/svg%3E"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="./index.css" />
   </head>
 
   <body>
-    <!-- Ambient background -->
+    <a class="skip-link" href="#top">Skip to content</a>
+
+    <!-- Ambient background. The CSS grid is the no-JS / reduced-motion
+         baseline; the canvas replaces it with an interactive mesh. -->
     <div class="grid-overlay" aria-hidden="true"></div>
+    <canvas id="mesh" class="mesh-canvas" aria-hidden="true"></canvas>
 
     <!-- NAV -->
     <header
-      class="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-[rgba(7,7,11,0.6)] backdrop-blur-[16px]"
+      class="sticky top-[0px] z-10 border-b border-white/[0.06] bg-[rgba(7,7,11,0.85)] backdrop-blur-[12px]"
     >
-      <div class="container flex items-center justify-between py-16">
-        <a href="#top" class="flex items-center gap-10">
-          <span
-            class="w-28 h-28 rounded-8 flex items-center justify-center font-bold text-14 bg-[linear-gradient(135deg,#8b5cf6,#db2777)] shadow-[0_4px_20px_-4px_rgba(139,92,246,0.7)]"
-            >~</span
-          >
-          <span class="mono font-bold text-15 text-white"
-            >tailwindcss-calc</span
-          >
-        </a>
-        <nav class="flex items-center gap-32">
+      <div
+        class="shell flex items-center gap-[12px] md:gap-[24px] py-[14px] md:py-[18px]"
+      >
+        <a
+          href="#top"
+          class="mono text-[13px] md:text-[15px] font-semibold text-white whitespace-nowrap"
+          >tailwindcss-calc</a
+        >
+        <span
+          class="mono text-[11px] px-[8px] py-[2px] rounded-full bg-white/5 border border-white/10 text-zinc-400 hidden md:inline"
+          >v4</span
+        >
+        <nav class="flex items-center gap-[24px] ml-auto">
           <a
-            href="#how-it-works"
-            class="text-14 text-zinc-400 hover:text-white transition hidden md:inline"
+            href="#how"
+            class="text-[14px] text-zinc-400 hover:text-white transition hidden md:inline"
             >How it works</a
           >
           <a
-            href="#features"
-            class="text-14 text-zinc-400 hover:text-white transition hidden md:inline"
-            >Features</a
-          >
-          <a
             href="#utilities"
-            class="text-14 text-zinc-400 hover:text-white transition hidden md:inline"
+            class="text-[14px] text-zinc-400 hover:text-white transition hidden md:inline"
             >Utilities</a
           >
           <a
-            href="#install"
-            class="text-14 text-zinc-400 hover:text-white transition hidden md:inline"
-            >Install</a
+            href="#config"
+            class="text-[14px] text-zinc-400 hover:text-white transition hidden md:inline"
+            >Config</a
           >
           <a
             href="https://github.com/oswaldohuillca/tailwindcss-calc"
             target="_blank"
             rel="noopener"
-            class="mono text-13 text-white px-18 py-10 rounded-8 transition bg-[linear-gradient(135deg,#7c3aed,#db2777)] shadow-[0_4px_24px_-6px_rgba(124,58,237,0.8)]"
+            class="btn-primary"
             >GitHub →</a
           >
         </nav>
       </div>
     </header>
 
-    <!-- HERO -->
-    <section
-      id="top"
-      class="container pt-140 pb-72 md:pt-200 md:pb-96 text-center"
-    >
-      <div
-        class="reveal inline-flex items-center gap-8 border border-white/10 bg-white/5 px-16 py-8 rounded-full mb-40"
+    <main>
+      <!-- HERO -->
+      <section
+        id="top"
+        class="shell flex flex-col items-center text-center gap-[20px] md:gap-[24px] pt-[56px] pb-[56px] md:pt-[104px] md:pb-[72px]"
       >
         <span
-          class="w-6 h-6 bg-emerald-400 rounded-full inline-block shadow-[0_0_12px_2px_rgba(52,211,153,0.8)]"
-        ></span>
-        <span class="mono text-13 text-zinc-300">v0.0.5 · Tailwind CSS v4</span>
-      </div>
-
-      <h1
-        class="reveal text-44 md:text-88 font-bold mb-24 leading-[1.05] tracking-[-0.035em]"
-      >
-        Pixel-perfect scaling.<br />
-        <span class="text-gradient">Zero breakpoints.</span>
-      </h1>
-
-      <p
-        class="reveal text-zinc-400 mb-48 mx-auto text-[1.05rem] leading-[1.7] max-w-[560px]"
-      >
-        A Tailwind CSS v4 plugin built entirely in CSS. Every utility scales
-        proportionally to the viewport using
-        <code class="text-white bg-white/10 px-8 py-2 rounded-4 mono"
-          >calc()</code
+          class="reveal inline-flex items-center gap-[8px] mono text-[13px] text-zinc-300 border border-white/10 bg-white/5 px-[16px] py-[8px] rounded-full"
         >
-        and
-        <code class="text-white bg-white/10 px-8 py-2 rounded-4 mono"
-          >clamp()</code
-        >.
-      </p>
-
-      <div
-        class="reveal flex items-center justify-center gap-16 flex-wrap mb-56"
-      >
-        <div
-          class="inline-flex items-center gap-12 bg-white/5 border border-white/10 px-24 py-16 rounded-12 mono"
-        >
-          <span class="text-zinc-500 text-14">$</span>
-          <span class="text-14 text-white">npm install tailwindcss-calc</span>
-          <button
-            data-copy="npm install tailwindcss-calc"
-            class="text-zinc-500 hover:text-white text-14 ml-4 transition"
-            title="Copy"
-            aria-label="Copy install command"
-          >
-            ⎘
-          </button>
-        </div>
-        <a
-          href="#how-it-works"
-          class="px-24 py-16 rounded-12 text-14 text-zinc-300 border border-white/10 hover:border-white/25 hover:text-white transition"
-          >See how it works →</a
-        >
-      </div>
-
-      <!-- Live viewport meter -->
-      <div
-        class="reveal card rounded-16 inline-flex items-center gap-16 md:gap-24 px-24 md:px-28 py-16 flex-wrap justify-center"
-      >
-        <div class="flex items-center gap-10">
-          <span class="mono text-12 text-zinc-500 uppercase tracking-wide"
-            >viewport</span
-          >
           <span
-            data-vw
-            class="mono text-15 font-semibold text-white min-w-[62px] text-left"
-            >—</span
-          >
-        </div>
-        <span class="w-px h-24 bg-white/10 hidden md:block"></span>
-        <div class="flex items-center gap-10">
-          <code class="mono text-13 text-violet-300">w-100</code>
-          <span class="text-zinc-600 text-13">renders as</span>
-          <span data-probe class="mono text-15 font-semibold text-emerald-300"
-            >—</span
-          >
-        </div>
-      </div>
-      <p class="text-13 text-zinc-600 mt-16">
-        Resize the window (or open it on your phone) — it updates live.
-      </p>
-    </section>
+            class="w-[6px] h-[6px] rounded-full bg-emerald-400 shadow-[0_0_12px_2px_rgba(52,211,153,0.8)]"
+          ></span>
+          Built for Tailwind CSS v4
+        </span>
 
-    <!-- SCALE VISUALIZER -->
-    <section class="py-48 md:py-64">
-      <div class="container reveal">
+        <h1
+          class="reveal text-gradient text-[clamp(40px,8vw,72px)] font-extrabold leading-[1.05] tracking-[-0.035em] max-w-[15ch] text-balance"
+        >
+          Design once. It fits every screen.
+        </h1>
+
         <p
-          class="text-center mono text-13 text-zinc-600 mb-40 md:mb-48 uppercase tracking-[0.12em]"
+          class="reveal text-[1.15rem] text-zinc-400 leading-[1.7] max-w-[60ch] text-pretty"
         >
-          Live demo — every box scales with the viewport
+          Write the pixel values from your mockup —
+          <span class="mono text-zinc-300">w-100</span>,
+          <span class="mono text-zinc-300">p-20</span>,
+          <span class="mono text-zinc-300">text-32</span> — and every one of
+          them scales with the viewport. Pure CSS, no config, no JavaScript.
         </p>
-        <div class="flex items-end justify-center gap-16 md:gap-24 flex-wrap">
-          <div class="flex flex-col items-center gap-12">
-            <span class="mono text-11 text-zinc-600">w-40</span>
-            <div
-              class="rounded-10 w-40 h-40 bg-[linear-gradient(135deg,#6d28d9,#7c3aed)]"
-            ></div>
-          </div>
-          <div class="flex flex-col items-center gap-12">
-            <span class="mono text-11 text-zinc-600">w-80</span>
-            <div
-              class="rounded-10 w-80 h-80 bg-[linear-gradient(135deg,#7c3aed,#8b5cf6)]"
-            ></div>
-          </div>
-          <div class="flex flex-col items-center gap-12">
-            <span class="mono text-11 text-zinc-600">w-120</span>
-            <div
-              class="rounded-12 w-120 h-120 bg-[linear-gradient(135deg,#8b5cf6,#a855f7)]"
-            ></div>
-          </div>
-          <div class="flex flex-col items-center gap-12">
-            <span class="mono text-11 text-zinc-600">w-160</span>
-            <div
-              class="rounded-14 w-160 h-160 bg-[linear-gradient(135deg,#a855f7,#d946ef)]"
-            ></div>
-          </div>
-          <div class="flex flex-col items-center gap-12">
-            <span class="mono text-11 text-zinc-600">w-200</span>
-            <div
-              class="rounded-16 w-200 h-200 bg-[linear-gradient(135deg,#d946ef,#db2777)] shadow-[0_20px_60px_-20px_rgba(217,70,239,0.6)]"
-            ></div>
-          </div>
-        </div>
-        <p class="text-center text-13 text-zinc-600 mt-32">
-          Same <code class="text-zinc-400 mono">w-*</code> /
-          <code class="text-zinc-400 mono">h-*</code> classes — proportional at
-          any width, capped at the reference.
-        </p>
-      </div>
-    </section>
 
-    <!-- HOW IT WORKS -->
-    <section id="how-it-works" class="py-72 md:py-120 border-t border-white/5">
-      <div class="container">
-        <div class="text-center mb-56 md:mb-72 reveal">
-          <p
-            class="mono text-13 text-violet-400 uppercase mb-16 tracking-[0.12em]"
-          >
-            How it works
-          </p>
-          <h2 class="text-32 md:text-52 font-bold mb-20 tracking-[-0.03em]">
-            One formula. Every utility.
-          </h2>
-          <p
-            class="text-zinc-400 mx-auto text-[1.05rem] max-w-[480px] leading-[1.7]"
-          >
-            Every class shares a single
-            <code class="text-white mono">--calc-ratio</code> factor, so every
-            property scales fluidly with the viewport.
-          </p>
-        </div>
-
-        <!-- Formula card -->
         <div
-          class="card rounded-24 p-32 md:p-56 mb-56 md:mb-64 max-w-860 mx-auto reveal"
+          class="reveal flex flex-wrap gap-[16px] items-center justify-center mt-[4px]"
         >
-          <p class="text-center mono text-zinc-500 text-13 mb-20">
-            Generated CSS
-          </p>
           <div
-            class="rounded-14 px-20 md:px-32 py-24 md:py-28 text-center mono text-13 md:text-16 mb-40 bg-[#0c0c14] border border-[rgba(255,255,255,0.08)] overflow-x-auto whitespace-nowrap"
+            class="flex flex-col gap-[12px] items-center md:items-start w-full md:w-auto"
           >
-            <span class="text-zinc-500">property: </span>calc(<span
-              class="text-[#c4b5fd]"
-              >value</span
-            >
-            * clamp(0px, 100vw, <span class="text-[#6ee7b7]">max-width</span>) /
-            <span class="text-[#fcd34d]">base-width</span>);
-          </div>
-          <div class="grid gap-16 md:gap-20 grid-cols-1 md:grid-cols-3">
-            <div
-              class="rounded-14 p-28 text-center bg-[rgba(139,92,246,0.08)] border border-[rgba(139,92,246,0.2)]"
-            >
-              <p class="mono font-bold text-22 mb-10 text-[#c4b5fd]">value</p>
-              <p class="text-zinc-400 text-[0.875rem] leading-[1.6]">
-                The number in your class.<br />
-                <code class="text-white mono">100</code> in
-                <code class="text-white mono">w-100</code>.
-              </p>
+            <div class="flex gap-[20px]" role="tablist">
+              <button
+                class="pm-tab"
+                role="tab"
+                aria-selected="true"
+                data-pm="npm"
+              >
+                npm
+              </button>
+              <button
+                class="pm-tab"
+                role="tab"
+                aria-selected="false"
+                data-pm="bun"
+              >
+                bun
+              </button>
+              <button
+                class="pm-tab"
+                role="tab"
+                aria-selected="false"
+                data-pm="pnpm"
+              >
+                pnpm
+              </button>
+              <button
+                class="pm-tab"
+                role="tab"
+                aria-selected="false"
+                data-pm="yarn"
+              >
+                yarn
+              </button>
             </div>
             <div
-              class="rounded-14 p-28 text-center bg-[rgba(16,185,129,0.08)] border border-[rgba(16,185,129,0.2)]"
-            >
-              <p class="mono font-bold text-22 mb-10 text-[#6ee7b7]">
-                max-width
-              </p>
-              <p class="text-zinc-400 text-[0.875rem] leading-[1.6]">
-                Viewport cap. Values stop growing past the reference width.
-              </p>
-            </div>
-            <div
-              class="rounded-14 p-28 text-center bg-[rgba(245,158,11,0.08)] border border-[rgba(245,158,11,0.2)]"
-            >
-              <p class="mono font-bold text-22 mb-10 text-[#fcd34d]">
-                base-width
-              </p>
-              <p class="text-zinc-400 text-[0.875rem] leading-[1.6]">
-                Design reference: <code class="text-white mono">375</code> on
-                mobile, <code class="text-white mono">1440</code> from
-                <code class="text-white mono">md</code>.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Mobile-first callout -->
-        <div class="max-w-860 mx-auto mb-56 md:mb-64 reveal">
-          <div
-            class="rounded-20 p-28 md:p-32 bg-[rgba(124,58,237,0.08)] border border-[rgba(139,92,246,0.25)]"
-          >
-            <p class="font-semibold text-18 mb-12 flex items-center gap-10">
-              <span
-                class="w-24 h-24 rounded-6 inline-flex items-center justify-center text-13 bg-[rgba(139,92,246,0.2)]"
-                >📱</span
-              >
-              Built-in mobile support
-            </p>
-            <p class="text-zinc-400 mb-16 text-[0.95rem] leading-[1.7]">
-              The base reference switches automatically at the
-              <code class="text-white mono">md</code> breakpoint, so you design
-              mobile-first and pair it with normal responsive variants:
-            </p>
-            <div
-              class="rounded-12 px-20 py-16 mono text-13 md:text-14 bg-[#0c0c14] border border-[rgba(255,255,255,0.08)] overflow-x-auto whitespace-nowrap"
-            >
-              <span class="text-zinc-500">&lt;h1 class=</span
-              ><span class="text-emerald-400">"text-44 md:text-88"</span
-              ><span class="text-zinc-500">&gt;</span>
-              <span class="text-zinc-300">Scales on phone and desktop</span>
-              <span class="text-zinc-500">&lt;/h1&gt;</span>
-            </div>
-            <p class="text-13 text-zinc-600 mt-14">
-              <code class="text-zinc-400 mono">text-44</code> uses the
-              <span class="text-zinc-400">375</span> reference on phones;
-              <code class="text-zinc-400 mono">md:text-88</code> takes over with
-              the <span class="text-zinc-400">1440</span> reference on larger
-              screens — this very page is built that way.
-            </p>
-          </div>
-        </div>
-
-        <!-- Scale reference bars -->
-        <div class="max-w-600 mx-auto reveal">
-          <p class="text-center text-zinc-500 mono text-13 mb-8">
-            <code class="text-white">w-100</code> across viewport widths
-          </p>
-          <p class="text-center text-12 text-zinc-600 mb-28">
-            (illustrated with a fixed
-            <code class="text-zinc-400 mono">--window-width: 1440</code>)
-          </p>
-          <div class="flex flex-col gap-[14px]">
-            <div class="flex items-center gap-16">
-              <span class="mono text-13 text-zinc-500 shrink-0 w-[60px]"
-                >375px</span
-              >
-              <div
-                class="flex-1 rounded-full overflow-hidden bg-[rgba(255,255,255,0.05)] h-[8px]"
-              >
-                <div
-                  class="w-[26%] h-[8px] rounded-full bg-[linear-gradient(90deg,#6d28d9,#8b5cf6)]"
-                ></div>
-              </div>
-              <span
-                class="mono text-13 text-zinc-400 shrink-0 text-right w-[54px]"
-                >~26px</span
-              >
-            </div>
-            <div class="flex items-center gap-16">
-              <span class="mono text-13 text-zinc-500 shrink-0 w-[60px]"
-                >768px</span
-              >
-              <div
-                class="flex-1 rounded-full overflow-hidden bg-[rgba(255,255,255,0.05)] h-[8px]"
-              >
-                <div
-                  class="w-[53%] h-[8px] rounded-full bg-[linear-gradient(90deg,#7c3aed,#8b5cf6)]"
-                ></div>
-              </div>
-              <span
-                class="mono text-13 text-zinc-400 shrink-0 text-right w-[54px]"
-                >~53px</span
-              >
-            </div>
-            <div class="flex items-center gap-16">
-              <span class="mono text-13 text-zinc-500 shrink-0 w-[60px]"
-                >1024px</span
-              >
-              <div
-                class="flex-1 rounded-full overflow-hidden bg-[rgba(255,255,255,0.05)] h-[8px]"
-              >
-                <div
-                  class="w-[71%] h-[8px] rounded-full bg-[linear-gradient(90deg,#8b5cf6,#a855f7)]"
-                ></div>
-              </div>
-              <span
-                class="mono text-13 text-zinc-400 shrink-0 text-right w-[54px]"
-                >~71px</span
-              >
-            </div>
-            <div class="flex items-center gap-16">
-              <span class="mono text-13 text-zinc-500 shrink-0 w-[60px]"
-                >1440px</span
-              >
-              <div
-                class="flex-1 rounded-full overflow-hidden bg-[rgba(255,255,255,0.05)] h-[8px]"
-              >
-                <div
-                  class="w-full h-[8px] rounded-full bg-[linear-gradient(90deg,#a855f7,#d946ef)]"
-                ></div>
-              </div>
-              <span
-                class="mono text-13 text-emerald-300 shrink-0 text-right w-[54px]"
-                >100px ✓</span
-              >
-            </div>
-            <div class="flex items-center gap-16">
-              <span class="mono text-13 text-zinc-500 shrink-0 w-[60px]"
-                >1920px</span
-              >
-              <div
-                class="flex-1 rounded-full overflow-hidden bg-[rgba(255,255,255,0.05)] h-[8px]"
-              >
-                <div
-                  class="w-full h-[8px] rounded-full bg-[linear-gradient(90deg,#d946ef,#db2777)]"
-                ></div>
-              </div>
-              <span
-                class="mono text-13 text-emerald-300 shrink-0 text-right w-[54px]"
-                >100px ✓</span
-              >
-            </div>
-          </div>
-          <p class="text-center text-13 text-zinc-600 mt-20">
-            Values are capped at the base width — no overflow on ultra-wide
-            screens.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- FEATURES -->
-    <section id="features" class="py-72 md:py-120 border-t border-white/5">
-      <div class="container">
-        <div class="text-center mb-56 md:mb-72 reveal">
-          <p
-            class="mono text-13 text-violet-400 uppercase mb-16 tracking-[0.12em]"
-          >
-            Features
-          </p>
-          <h2 class="text-32 md:text-52 font-bold tracking-[-0.03em]">
-            Why tailwindcss-calc?
-          </h2>
-        </div>
-
-        <div class="grid gap-16 md:gap-24 grid-cols-1 md:grid-cols-2">
-          <div class="card card-hover rounded-20 p-28 md:p-40 reveal">
-            <div
-              class="w-48 h-48 rounded-14 flex items-center justify-center mb-28 text-[22px] bg-[rgba(139,92,246,0.15)]"
-            >
-              ✦
-            </div>
-            <h3 class="font-bold text-20 mb-12">100% CSS</h3>
-            <p class="text-zinc-400 text-[0.95rem] leading-[1.7]">
-              No JavaScript. No runtime. Built entirely with native CSS features
-              —
-              <code class="text-white mono">@utility</code>,
-              <code class="text-white mono">calc()</code> and
-              <code class="text-white mono">clamp()</code>. Pure, zero-overhead
-              performance.
-            </p>
-          </div>
-
-          <div class="card card-hover rounded-20 p-28 md:p-40 reveal">
-            <div
-              class="w-48 h-48 rounded-14 flex items-center justify-center mb-28 text-[22px] bg-[rgba(16,185,129,0.15)]"
-            >
-              ⟷
-            </div>
-            <h3 class="font-bold text-20 mb-12">Fluid scaling</h3>
-            <p class="text-zinc-400 text-[0.95rem] leading-[1.7]">
-              Design at a fixed reference width and every screen gets a
-              perfectly proportional result. No breakpoints. No media queries.
-              Just math.
-            </p>
-          </div>
-
-          <div class="card card-hover rounded-20 p-28 md:p-40 reveal">
-            <div
-              class="w-48 h-48 rounded-14 flex items-center justify-center mb-28 text-[22px] bg-[rgba(245,158,11,0.15)]"
-            >
-              ⚙
-            </div>
-            <h3 class="font-bold text-20 mb-12">Fully customizable</h3>
-            <p class="text-zinc-400 text-[0.95rem] leading-[1.7]">
-              Override the reference width with a single CSS variable. Set
-              <code class="text-white mono">--window-width: 1920</code> and
-              every utility instantly recalculates to match your design system.
-            </p>
-          </div>
-
-          <div class="card card-hover rounded-20 p-28 md:p-40 reveal">
-            <div
-              class="w-48 h-48 rounded-14 flex items-center justify-center mb-28 text-[22px] bg-[rgba(244,63,94,0.15)]"
-            >
-              −
-            </div>
-            <h3 class="font-bold text-20 mb-12">Negative values</h3>
-            <p class="text-zinc-400 text-[0.95rem] leading-[1.7]">
-              All compatible utilities support negative variants. Use
-              <code class="text-white mono">-mt-20</code>,
-              <code class="text-white mono">-top-40</code>,
-              <code class="text-white mono">-translate-x-50</code> — all
-              properly scaled.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- UTILITIES -->
-    <section id="utilities" class="py-72 md:py-120 border-t border-white/5">
-      <div class="container">
-        <div class="text-center mb-56 md:mb-72 reveal">
-          <p
-            class="mono text-13 text-violet-400 uppercase mb-16 tracking-[0.12em]"
-          >
-            Available utilities
-          </p>
-          <h2 class="text-32 md:text-52 font-bold tracking-[-0.03em]">
-            Everything you need.
-          </h2>
-        </div>
-
-        <div class="grid gap-16 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
-          <div class="card rounded-16 p-24 md:p-32 reveal">
-            <p class="font-semibold mb-16 text-16">Sizing</p>
-            <div class="flex flex-wrap gap-8">
-              <span class="chip text-12 px-10 py-6 rounded-8">w-*</span>
-              <span class="chip text-12 px-10 py-6 rounded-8">h-*</span>
-              <span class="chip text-12 px-10 py-6 rounded-8">size-*</span>
-              <span class="chip text-12 px-10 py-6 rounded-8">min-w-*</span>
-              <span class="chip text-12 px-10 py-6 rounded-8">max-w-*</span>
-              <span class="chip text-12 px-10 py-6 rounded-8">min-h-*</span>
-              <span class="chip text-12 px-10 py-6 rounded-8">max-h-*</span>
-            </div>
-          </div>
-
-          <div class="card rounded-16 p-24 md:p-32 reveal">
-            <p class="font-semibold mb-16 text-16">Padding</p>
-            <div class="flex flex-wrap gap-8">
-              <span class="chip text-12 px-10 py-6 rounded-8">p-*</span>
-              <span class="chip text-12 px-10 py-6 rounded-8">px-*</span>
-              <span class="chip text-12 px-10 py-6 rounded-8">py-*</span>
-              <span class="chip text-12 px-10 py-6 rounded-8">pt-*</span>
-              <span class="chip text-12 px-10 py-6 rounded-8">pb-*</span>
-              <span class="chip text-12 px-10 py-6 rounded-8">pl-*</span>
-              <span class="chip text-12 px-10 py-6 rounded-8">pr-*</span>
-            </div>
-          </div>
-
-          <div class="card rounded-16 p-24 md:p-32 reveal">
-            <p class="font-semibold mb-16 text-16">
-              Margin
-              <span class="mono text-11 text-violet-400 ml-6">+ negative</span>
-            </p>
-            <div class="flex flex-wrap gap-8">
-              <span class="chip text-12 px-10 py-6 rounded-8">m-*</span>
-              <span class="chip text-12 px-10 py-6 rounded-8">mx-*</span>
-              <span class="chip text-12 px-10 py-6 rounded-8">my-*</span>
-              <span class="chip text-12 px-10 py-6 rounded-8">mt-*</span>
-              <span class="chip text-12 px-10 py-6 rounded-8">mb-*</span>
-              <span class="chip text-12 px-10 py-6 rounded-8">ml-*</span>
-              <span class="chip text-12 px-10 py-6 rounded-8">mr-*</span>
-              <span class="chip-neg text-12 px-10 py-6 rounded-8">-m-*</span>
-              <span class="chip-neg text-12 px-10 py-6 rounded-8">-mt-*</span>
-              <span class="chip-neg text-12 px-10 py-6 rounded-8">-mb-*</span>
-              <span class="chip-neg text-12 px-10 py-6 rounded-8">-mx-*</span>
-            </div>
-          </div>
-
-          <div class="card rounded-16 p-24 md:p-32 reveal">
-            <p class="font-semibold mb-16 text-16">
-              Typography
-              <span class="mono text-11 text-violet-400 ml-6">+ negative</span>
-            </p>
-            <div class="flex flex-wrap gap-8">
-              <span class="chip text-12 px-10 py-6 rounded-8">text-*</span>
-              <span class="chip text-12 px-10 py-6 rounded-8">leading-*</span>
-              <span class="chip text-12 px-10 py-6 rounded-8">tracking-*</span>
-              <span class="chip text-12 px-10 py-6 rounded-8"
-                >word-spacing-*</span
-              >
-              <span class="chip-neg text-12 px-10 py-6 rounded-8"
-                >-tracking-*</span
-              >
-              <span class="chip-neg text-12 px-10 py-6 rounded-8"
-                >-word-spacing-*</span
-              >
-            </div>
-          </div>
-
-          <div class="card rounded-16 p-24 md:p-32 reveal">
-            <p class="font-semibold mb-16 text-16">
-              Positioning
-              <span class="mono text-11 text-violet-400 ml-6">+ negative</span>
-            </p>
-            <div class="flex flex-wrap gap-8">
-              <span class="chip text-12 px-10 py-6 rounded-8">top-*</span>
-              <span class="chip text-12 px-10 py-6 rounded-8">bottom-*</span>
-              <span class="chip text-12 px-10 py-6 rounded-8">left-*</span>
-              <span class="chip text-12 px-10 py-6 rounded-8">right-*</span>
-              <span class="chip text-12 px-10 py-6 rounded-8">inset-*</span>
-              <span class="chip text-12 px-10 py-6 rounded-8">inset-x-*</span>
-              <span class="chip text-12 px-10 py-6 rounded-8">inset-y-*</span>
-              <span class="chip-neg text-12 px-10 py-6 rounded-8">-top-*</span>
-              <span class="chip-neg text-12 px-10 py-6 rounded-8">-left-*</span>
-              <span class="chip-neg text-12 px-10 py-6 rounded-8"
-                >-inset-*</span
-              >
-            </div>
-          </div>
-
-          <div class="card rounded-16 p-24 md:p-32 reveal">
-            <p class="font-semibold mb-16 text-16">
-              Transform
-              <span class="mono text-11 text-violet-400 ml-6">+ negative</span>
-            </p>
-            <div class="flex flex-wrap gap-8">
-              <span class="chip text-12 px-10 py-6 rounded-8"
-                >translate-x-*</span
-              >
-              <span class="chip text-12 px-10 py-6 rounded-8"
-                >translate-y-*</span
-              >
-              <span class="chip-neg text-12 px-10 py-6 rounded-8"
-                >-translate-x-*</span
-              >
-              <span class="chip-neg text-12 px-10 py-6 rounded-8"
-                >-translate-y-*</span
-              >
-            </div>
-          </div>
-
-          <div class="card rounded-16 p-24 md:p-32 reveal">
-            <p class="font-semibold mb-16 text-16">Gap</p>
-            <div class="flex flex-wrap gap-8">
-              <span class="chip text-12 px-10 py-6 rounded-8">gap-*</span>
-              <span class="chip text-12 px-10 py-6 rounded-8">gap-x-*</span>
-              <span class="chip text-12 px-10 py-6 rounded-8">gap-y-*</span>
-              <span class="chip text-12 px-10 py-6 rounded-8">row-gap-*</span>
-              <span class="chip text-12 px-10 py-6 rounded-8">col-gap-*</span>
-            </div>
-          </div>
-
-          <div class="card rounded-16 p-24 md:p-32 reveal">
-            <p class="font-semibold mb-16 text-16">Borders & Radius</p>
-            <div class="flex flex-wrap gap-8">
-              <span class="chip text-12 px-10 py-6 rounded-8">rounded-*</span>
-              <span class="chip text-12 px-10 py-6 rounded-8">rounded-t-*</span>
-              <span class="chip text-12 px-10 py-6 rounded-8">rounded-b-*</span>
-              <span class="chip text-12 px-10 py-6 rounded-8">rounded-l-*</span>
-              <span class="chip text-12 px-10 py-6 rounded-8">rounded-r-*</span>
-              <span class="chip text-12 px-10 py-6 rounded-8">border-w-*</span>
-              <span class="chip text-12 px-10 py-6 rounded-8">border-t-*</span>
-              <span class="chip text-12 px-10 py-6 rounded-8">border-b-*</span>
-              <span class="chip text-12 px-10 py-6 rounded-8">border-l-*</span>
-              <span class="chip text-12 px-10 py-6 rounded-8">border-r-*</span>
-            </div>
-          </div>
-
-          <div class="card rounded-16 p-24 md:p-32 reveal">
-            <p class="font-semibold mb-16 text-16">
-              Misc
-              <span class="mono text-11 text-violet-400 ml-4">+ negative</span>
-            </p>
-            <div class="flex flex-wrap gap-8">
-              <span class="chip text-12 px-10 py-6 rounded-8">container</span>
-              <span class="chip text-12 px-10 py-6 rounded-8"
-                >outline-offset-*</span
-              >
-              <span class="chip-neg text-12 px-10 py-6 rounded-8"
-                >-outline-offset-*</span
-              >
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- INSTALL -->
-    <section id="install" class="py-72 md:py-120 border-t border-white/5">
-      <div class="container">
-        <div class="text-center mb-56 md:mb-72 reveal">
-          <p
-            class="mono text-13 text-violet-400 uppercase mb-16 tracking-[0.12em]"
-          >
-            Get started
-          </p>
-          <h2 class="text-32 md:text-52 font-bold mb-20 tracking-[-0.03em]">
-            Up and running in 2 steps.
-          </h2>
-        </div>
-
-        <div class="max-w-720 mx-auto flex flex-col gap-24">
-          <!-- Step 1 -->
-          <div class="card rounded-20 p-28 md:p-40 reveal">
-            <div class="flex items-center gap-16 mb-24">
-              <span
-                class="w-32 h-32 rounded-full flex items-center justify-center mono font-bold text-14 shrink-0 bg-[linear-gradient(135deg,#7c3aed,#db2777)]"
-                >1</span
-              >
-              <p class="font-semibold text-18">Install the package</p>
-            </div>
-            <div
-              class="rounded-12 px-24 py-20 mono text-14 flex items-center gap-12 bg-[#0c0c14] border border-[rgba(255,255,255,0.08)]"
+              class="code-surface flex items-center gap-[12px] px-[22px] py-[18px] text-[14px] w-full md:w-auto md:min-w-[360px] text-left"
             >
               <span class="text-zinc-500">$</span>
-              <span class="text-white flex-1"
+              <span
+                class="text-white flex-1 min-w-0 overflow-x-auto whitespace-nowrap"
+                data-pm-cmd
                 >npm install tailwindcss-calc</span
               >
               <button
-                data-copy="npm install tailwindcss-calc"
-                class="text-zinc-500 hover:text-white transition"
-                title="Copy"
+                data-copy-target="[data-pm-cmd]"
+                class="text-zinc-500 hover:text-white transition inline-flex"
                 aria-label="Copy install command"
               >
-                ⎘
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <rect x="9" y="9" width="13" height="13" rx="2" />
+                  <path
+                    d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"
+                  />
+                </svg>
               </button>
-            </div>
-          </div>
-
-          <!-- Step 2 -->
-          <div class="card rounded-20 p-28 md:p-40 reveal">
-            <div class="flex items-center gap-16 mb-24">
               <span
-                class="w-32 h-32 rounded-full flex items-center justify-center mono font-bold text-14 shrink-0 bg-[linear-gradient(135deg,#7c3aed,#db2777)]"
-                >2</span
-              >
-              <p class="font-semibold text-18">Import in your CSS file</p>
-            </div>
-            <div
-              class="rounded-12 px-24 py-20 mono text-14 leading-[1.8] bg-[#0c0c14] border border-[rgba(255,255,255,0.08)]"
-            >
-              <span class="text-violet-400">@import</span>
-              <span class="text-emerald-400">"tailwindcss"</span
-              ><span class="text-zinc-500">;</span><br />
-              <span class="text-violet-400">@import</span>
-              <span class="text-emerald-400">"tailwindcss-calc"</span
-              ><span class="text-zinc-500">;</span>
+                role="status"
+                aria-live="polite"
+                data-copy-status
+                class="text-[12px] text-emerald-400 shrink-0 md:min-w-[46px]"
+              ></span>
             </div>
           </div>
-
-          <!-- Done -->
-          <div
-            class="rounded-20 p-32 text-center reveal bg-[rgba(124,58,237,0.1)] border border-[rgba(139,92,246,0.3)]"
+          <a href="#how" class="btn-ghost w-full md:w-auto md:self-end"
+            >See how it works →</a
           >
-            <p class="text-18 font-semibold mb-8">That's it. 🎉</p>
-            <p class="text-zinc-400 text-[0.95rem]">
-              All utilities are now available. Use
-              <code class="text-white mono">w-100</code>,
-              <code class="text-white mono">p-24</code>,
-              <code class="text-white mono">text-48</code>
-              and any other numeric class — they all scale with the viewport.
+        </div>
+      </section>
+
+      <!-- HOW IT WORKS -->
+      <section id="how" class="shell flex flex-col gap-[28px] pt-[24px] pb-[56px] md:pb-[72px]">
+        <p class="eyebrow reveal">How it works</p>
+        <div
+          class="grid gap-[20px] grid-cols-[repeat(auto-fit,minmax(min(260px,100%),1fr))]"
+        >
+          <div
+            class="card card-hover reveal flex flex-col gap-[12px] p-[24px] md:p-[32px]"
+          >
+            <span class="mono text-[11px] text-[#a78bfa]">01</span>
+            <h3 class="text-[20px] font-bold">Set two numbers</h3>
+            <p class="text-zinc-400 text-[0.95rem] leading-[1.7]">
+              Your mobile and desktop design widths. That is the entire
+              configuration.
+            </p>
+          </div>
+          <div
+            class="card card-hover reveal reveal-2 flex flex-col gap-[12px] p-[24px] md:p-[32px]"
+          >
+            <span class="mono text-[11px] text-[#a78bfa]">02</span>
+            <h3 class="text-[20px] font-bold">Write mockup pixels</h3>
+            <p class="text-zinc-400 text-[0.95rem] leading-[1.7]">
+              A 100px box is <code class="mono text-white">w-100</code>. No
+              conversion, no <code class="mono text-white">md:</code> ladder for
+              sizing.
+            </p>
+          </div>
+          <div
+            class="card card-hover reveal reveal-3 flex flex-col gap-[12px] p-[24px] md:p-[32px]"
+          >
+            <span class="mono text-[11px] text-[#a78bfa]">03</span>
+            <h3 class="text-[20px] font-bold">Everything scales</h3>
+            <p class="text-zinc-400 text-[0.95rem] leading-[1.7]">
+              One shared ratio drives every utility, and caps at your design
+              width.
             </p>
           </div>
         </div>
-      </div>
-    </section>
+        <div
+          class="code-surface reveal p-[24px] text-center text-[14px] overflow-x-auto whitespace-nowrap"
+        >
+          <span class="text-zinc-500">property: </span>calc(<span
+            class="text-[#c4b5fd]"
+            >value</span
+          >
+          * clamp(0px, 100vw, <span class="text-[#6ee7b7]">max-width</span>) /
+          <span class="text-[#fcd34d]">base-width</span>);
+        </div>
+      </section>
+
+      <!-- LIVE SCALE DEMO -->
+      <section class="shell flex flex-col gap-[24px] pb-[56px] md:pb-[72px]">
+        <p class="eyebrow reveal">See it move — resize the window</p>
+        <div
+          class="card reveal flex flex-col gap-[28px] p-[20px] md:p-[32px]"
+        >
+          <div
+            class="flex flex-col gap-[28px] md:flex-row md:flex-wrap md:items-end md:gap-[20px]"
+          >
+            <div
+              class="flex flex-col gap-[10px] md:flex-1 md:min-w-[220px] md:self-end md:pb-[2px]"
+            >
+              <p
+                class="text-[0.95rem] text-zinc-400 leading-[1.7] max-w-[34ch] text-pretty"
+              >
+                Four different values, one shared ratio. Drag the window
+                narrower and they shrink together, keeping the proportions of
+                your mockup.
+              </p>
+              <p class="text-[13px] text-zinc-600">
+                Past <span class="mono text-zinc-400">1440px</span> they stop
+                growing — the base width is the cap.
+              </p>
+            </div>
+            <!-- the swatches keep their own row on mobile: smaller numbers,
+                 same 1 : 2 : 3 : 4 ratio, so nothing wraps -->
+            <div
+              class="flex items-end justify-between gap-[10px] md:contents"
+            >
+              <div class="flex flex-col items-center gap-[10px]">
+                <span class="mono text-[11px] text-zinc-600"
+                  ><span class="md:hidden">w-20</span
+                  ><span class="hidden md:inline">w-40</span></span
+                >
+                <div
+                  class="w-20 h-20 md:w-40 md:h-40 rounded-6 md:rounded-10 bg-[linear-gradient(135deg,#6d28d9,#7c3aed)]"
+                ></div>
+              </div>
+              <div class="flex flex-col items-center gap-[10px]">
+                <span class="mono text-[11px] text-zinc-600"
+                  ><span class="md:hidden">w-40</span
+                  ><span class="hidden md:inline">w-80</span></span
+                >
+                <div
+                  class="w-40 h-40 md:w-80 md:h-80 rounded-6 md:rounded-10 bg-[linear-gradient(135deg,#7c3aed,#8b5cf6)]"
+                ></div>
+              </div>
+              <div class="flex flex-col items-center gap-[10px]">
+                <span class="mono text-[11px] text-zinc-600"
+                  ><span class="md:hidden">w-60</span
+                  ><span class="hidden md:inline">w-120</span></span
+                >
+                <div
+                  class="w-60 h-60 md:w-120 md:h-120 rounded-8 md:rounded-12 bg-[linear-gradient(135deg,#8b5cf6,#a855f7)]"
+                ></div>
+              </div>
+              <div class="flex flex-col items-center gap-[10px]">
+                <span class="mono text-[11px] text-zinc-600"
+                  ><span class="md:hidden">w-80</span
+                  ><span class="hidden md:inline">w-160</span></span
+                >
+                <div
+                  class="w-80 h-80 md:w-160 md:h-160 rounded-10 md:rounded-14 bg-[linear-gradient(135deg,#a855f7,#d946ef)]"
+                ></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- live meter — stat tiles on mobile, one inline row from md up -->
+          <div
+            class="border-t border-white/[0.06] pt-[24px] grid gap-[10px] grid-cols-[repeat(auto-fit,minmax(min(150px,100%),1fr))]"
+          >
+            <div class="stat">
+              <span class="stat-label">viewport</span>
+              <span data-vw class="stat-value text-white">—</span>
+            </div>
+            <div class="stat">
+              <span class="stat-label">base</span>
+              <span class="flex items-center gap-[8px]">
+                <span data-base class="stat-value text-[#fcd34d]">—</span>
+                <span
+                  data-bp
+                  class="mono text-[11px] px-[8px] py-[2px] rounded-full bg-white/5 border border-white/10 text-zinc-400"
+                  >—</span
+                >
+              </span>
+            </div>
+            <div class="stat">
+              <span class="stat-label"
+                ><code class="mono text-[#c4b5fd]">w-100</code> renders as</span
+              >
+              <span data-probe class="stat-value text-[#6ee7b7]">—</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TWO MOCKUPS -->
+      <section class="shell flex flex-col gap-[24px] pb-[56px] md:pb-[72px]">
+        <p class="eyebrow reveal">One number set, two mockups</p>
+        <p
+          class="text-[1.05rem] text-zinc-400 leading-[1.7] max-w-[70ch] text-pretty reveal"
+        >
+          The same markup at both design references. Sizes come from the mockup
+          as written — <span class="mono text-zinc-300">p-32</span>,
+          <span class="mono text-zinc-300">size-56</span>,
+          <span class="mono text-zinc-300">text-32</span> — and only the layout
+          gets an <span class="mono text-zinc-300">md:</span> variant.
+        </p>
+
+        <!-- The frames are real artboards (375 at 1:1, 1440 at 45%), so they
+             keep their true size and scroll sideways rather than being
+             squeezed — a shrunk "1:1" frame would be a lie. -->
+        <div
+          class="flex gap-[24px] items-start reveal overflow-x-auto pb-[8px] md:flex-wrap md:overflow-x-visible"
+        >
+          <!-- mobile, 1:1 at its own base -->
+          <div class="flex flex-col gap-[10px]">
+            <span class="mono text-[11px] text-zinc-600"
+              >mobile · base 375 · 1:1</span
+            >
+            <div
+              class="frame w-[375px] h-[470px] shrink-0 [--window-width:375] [--calc-ratio:375px_/_375]"
+            >
+              <div class="p-20 flex flex-col gap-20">
+                <div class="flex items-center justify-between">
+                  <span class="mono text-13 font-semibold text-white">acme</span>
+                  <span class="mono text-11 text-zinc-500">menu</span>
+                </div>
+                <div class="card flex flex-col gap-16 p-32 rounded-20">
+                  <div
+                    class="size-56 rounded-full bg-[linear-gradient(135deg,#7c3aed,#db2777)]"
+                  ></div>
+                  <div
+                    class="text-32 font-bold tracking-[-0.03em] leading-[1.15] text-white"
+                  >
+                    Scales without breakpoints
+                  </div>
+                  <div class="text-16 text-zinc-400 leading-[1.6]">
+                    Every value in this card is a mockup pixel, multiplied by
+                    one ratio.
+                  </div>
+                  <div
+                    class="mono text-13 text-white px-20 py-12 rounded-10 self-start bg-[linear-gradient(135deg,#7c3aed,#db2777)]"
+                  >
+                    Get started →
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- desktop, the 1440 board shown at 45% -->
+          <div class="flex flex-col gap-[10px]">
+            <span class="mono text-[11px] text-zinc-600"
+              >desktop · base 1440 · shown at 45%</span
+            >
+            <div class="frame w-[648px] h-[470px] shrink-0">
+              <div
+                class="w-[1440px] h-[1044px] origin-top-left scale-[0.45] [--window-width:1440] [--calc-ratio:1440px_/_1440]"
+              >
+                <div class="p-40 flex flex-col gap-48">
+                  <div class="flex items-center justify-between">
+                    <span class="mono text-15 font-semibold text-white"
+                      >acme</span
+                    >
+                    <span class="mono text-13 text-zinc-500"
+                      >work · about · contact</span
+                    >
+                  </div>
+                  <div
+                    class="card flex items-center gap-32 p-32 rounded-20 max-w-880"
+                  >
+                    <div
+                      class="size-56 shrink-0 rounded-full bg-[linear-gradient(135deg,#7c3aed,#db2777)]"
+                    ></div>
+                    <div class="flex flex-col gap-12">
+                      <div
+                        class="text-32 font-bold tracking-[-0.03em] leading-[1.15] text-white"
+                      >
+                        Scales without breakpoints
+                      </div>
+                      <div class="text-16 text-zinc-400 leading-[1.6]">
+                        Every value in this card is a mockup pixel, multiplied
+                        by one ratio.
+                      </div>
+                    </div>
+                    <div
+                      class="mono text-13 text-white px-20 py-12 rounded-10 shrink-0 whitespace-nowrap bg-[linear-gradient(135deg,#7c3aed,#db2777)]"
+                    >
+                      Get started →
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="text-[13px] text-zinc-600 md:hidden">
+          Swipe to compare the two artboards →
+        </p>
+      </section>
+
+      <!-- CONFIG -->
+      <section
+        id="config"
+        class="shell grid gap-[20px] items-start pb-[56px] md:pb-[72px] grid-cols-[repeat(auto-fit,minmax(min(320px,100%),1fr))]"
+      >
+        <div class="flex flex-col gap-[20px] reveal">
+          <p class="eyebrow">Implement it — two imports, two numbers</p>
+<pre
+            class="code-surface px-[26px] py-[24px] text-[13px] leading-[1.9] overflow-x-auto"
+          ><span class="text-[#a78bfa]">@import</span> <span class="text-[#34d399]">"tailwindcss"</span><span class="text-zinc-500">;</span>
+<span class="text-[#a78bfa]">@import</span> <span class="text-[#34d399]">"tailwindcss-calc"</span><span class="text-zinc-500">;</span>
+
+<span class="text-[#a78bfa]">@layer</span> <span class="text-[#7dd3fc]">theme</span> <span class="text-zinc-500">{</span>
+  <span class="text-[#7dd3fc]">:root</span> <span class="text-zinc-500">{</span>
+    <span class="text-[#fcd34d]">--window-width</span><span class="text-zinc-500">:</span> <span class="text-white">375</span><span class="text-zinc-500">;</span> <span class="text-zinc-600">/* mobile mockup */</span>
+  <span class="text-zinc-500">}</span>
+  <span class="text-[#a78bfa]">@variant</span> <span class="text-[#7dd3fc]">md</span> <span class="text-zinc-500">{</span>
+    <span class="text-[#7dd3fc]">:root</span> <span class="text-zinc-500">{</span>
+      <span class="text-[#fcd34d]">--window-width</span><span class="text-zinc-500">:</span> <span class="text-white">1440</span><span class="text-zinc-500">;</span> <span class="text-zinc-600">/* desktop mockup */</span>
+    <span class="text-zinc-500">}</span>
+  <span class="text-zinc-500">}</span>
+<span class="text-zinc-500">}</span></pre>
+        </div>
+
+        <div class="flex flex-col gap-[20px]">
+          <div
+            class="reveal rounded-[20px] p-[24px] bg-[rgba(16,185,129,0.07)] border border-[rgba(16,185,129,0.22)]"
+          >
+            <p class="font-semibold text-[15px] text-[#6ee7b7] mb-[12px]">
+              ✓ Use <code class="mono text-inherit">@variant md</code>
+            </p>
+            <p class="text-zinc-400 text-[0.9rem] leading-[1.7]">
+              Mobile-first, and stays in sync with your theme's
+              <code class="mono text-zinc-300">--breakpoint-md</code>.
+            </p>
+          </div>
+          <div
+            class="reveal reveal-2 rounded-[20px] p-[24px] bg-[rgba(244,63,94,0.06)] border border-[rgba(244,63,94,0.2)]"
+          >
+            <p class="font-semibold text-[15px] text-[#fda4af] mb-[12px]">
+              ✕ Avoid <code class="mono text-inherit">max-width: 768px</code>
+            </p>
+            <p class="text-zinc-400 text-[0.9rem] leading-[1.7]">
+              Desktop-first fights the plugin and hard-codes a value that can
+              drift.
+            </p>
+          </div>
+          <div
+            class="reveal reveal-3 rounded-[20px] p-[24px] bg-[rgba(245,158,11,0.06)] border border-[rgba(245,158,11,0.22)]"
+          >
+            <p class="font-semibold text-[15px] text-[#fcd34d] mb-[12px]">
+              ! Keep paragraphs in rem
+            </p>
+            <p class="text-zinc-400 text-[0.9rem] leading-[1.7]">
+              Scaled font sizes ignore the reader's browser font-size
+              preference. Use scaled
+              <code class="mono text-zinc-300">text-*</code> for display type
+              and chrome.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- UTILITIES -->
+      <section id="utilities" class="shell flex flex-col gap-[20px] pb-[56px] md:pb-[72px]">
+        <p class="eyebrow reveal">What scales</p>
+        <div class="flex flex-wrap gap-[8px] reveal">
+          <span class="chip">w-*</span>
+          <span class="chip">h-*</span>
+          <span class="chip">size-*</span>
+          <span class="chip">min-w-*</span>
+          <span class="chip">max-w-*</span>
+          <span class="chip">min-h-*</span>
+          <span class="chip">max-h-*</span>
+          <span class="chip">p-*</span>
+          <span class="chip">px-*</span>
+          <span class="chip">py-*</span>
+          <span class="chip">m-*</span>
+          <span class="chip">mx-*</span>
+          <span class="chip">my-*</span>
+          <span class="chip">gap-*</span>
+          <span class="chip">gap-x-*</span>
+          <span class="chip">gap-y-*</span>
+          <span class="chip">rounded-*</span>
+          <span class="chip">text-*</span>
+          <span class="chip">leading-*</span>
+          <span class="chip">tracking-*</span>
+          <span class="chip">word-spacing-*</span>
+          <span class="chip">top-*</span>
+          <span class="chip">left-*</span>
+          <span class="chip">inset-*</span>
+          <span class="chip">translate-x-*</span>
+          <span class="chip">translate-y-*</span>
+          <span class="chip">border-w-*</span>
+          <span class="chip">outline-offset-*</span>
+          <span class="chip">container</span>
+          <span class="chip-neg">-m-*</span>
+          <span class="chip-neg">-mt-*</span>
+          <span class="chip-neg">-mx-*</span>
+          <span class="chip-neg">-top-*</span>
+          <span class="chip-neg">-left-*</span>
+          <span class="chip-neg">-inset-*</span>
+          <span class="chip-neg">-translate-x-*</span>
+          <span class="chip-neg">-tracking-*</span>
+        </div>
+        <p class="text-[13px] text-zinc-600">
+          Violet chips also accept a negative value.
+        </p>
+      </section>
+    </main>
 
     <!-- FOOTER -->
-    <footer class="py-56 md:py-64 border-t border-white/5">
-      <div class="container flex items-center justify-between flex-wrap gap-16">
-        <span class="mono text-14 text-zinc-600">tailwindcss-calc</span>
-        <div class="flex items-center gap-24">
-          <a
-            href="https://www.npmjs.com/package/tailwindcss-calc"
-            target="_blank"
-            rel="noopener"
-            class="text-13 text-zinc-600 hover:text-zinc-300 transition"
-            >npm</a
-          >
-          <a
-            href="https://github.com/oswaldohuillca/tailwindcss-calc"
-            target="_blank"
-            rel="noopener"
-            class="text-13 text-zinc-600 hover:text-zinc-300 transition"
-            >GitHub</a
-          >
-          <a
-            href="https://tailwindcss.com/docs"
-            target="_blank"
-            rel="noopener"
-            class="text-13 text-zinc-600 hover:text-zinc-300 transition"
-            >Tailwind Docs</a
+    <footer class="border-t border-white/[0.06]">
+      <div
+        class="shell flex flex-wrap gap-[24px] items-center justify-between py-[40px] md:py-[56px]"
+      >
+        <div class="flex flex-col gap-[8px]">
+          <span class="mono text-[15px] font-semibold">tailwindcss-calc</span>
+          <span class="text-[13px] text-zinc-600"
+            >MIT · pure CSS · no runtime</span
           >
         </div>
-        <span class="text-13 text-zinc-700">MIT License</span>
+        <a
+          href="https://github.com/oswaldohuillca/tailwindcss-calc"
+          target="_blank"
+          rel="noopener"
+          class="btn-primary"
+          >Read the docs →</a
+        >
       </div>
     </footer>
 
-    <!-- Hidden probe element: a real w-100 used to read the live computed size -->
+    <!-- Hidden probe: a real w-100 used to read the live computed size -->
     <div id="probe" class="w-100 absolute invisible pointer-events-none"></div>
 
     <script>
+      // --- package manager switcher ---
+      const PM_COMMANDS = {
+        npm: "npm install tailwindcss-calc",
+        bun: "bun add tailwindcss-calc",
+        pnpm: "pnpm add tailwindcss-calc",
+        yarn: "yarn add tailwindcss-calc",
+      };
+      document.querySelectorAll("[data-pm]").forEach((tab) => {
+        tab.addEventListener("click", () => {
+          const pm = tab.dataset.pm;
+          document.querySelectorAll("[data-pm]").forEach((t) => {
+            t.setAttribute("aria-selected", String(t.dataset.pm === pm));
+          });
+          document.querySelectorAll("[data-pm-cmd]").forEach((el) => {
+            el.textContent = PM_COMMANDS[pm];
+          });
+        });
+      });
+
       // --- copy buttons ---
-      document.querySelectorAll("[data-copy]").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          navigator.clipboard.writeText(btn.dataset.copy);
-          const prev = btn.textContent;
-          btn.textContent = "✓";
-          setTimeout(() => (btn.textContent = prev), 1500);
+      const copyStatus = document.querySelector("[data-copy-status]");
+      document.querySelectorAll("[data-copy-target]").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+          const target = document.querySelector(btn.dataset.copyTarget);
+          if (!target) return;
+          try {
+            await navigator.clipboard.writeText(target.textContent.trim());
+            if (copyStatus) {
+              copyStatus.textContent = "copied";
+              setTimeout(() => (copyStatus.textContent = ""), 1600);
+            }
+          } catch {
+            // clipboard API needs a secure context — fall back to selecting
+            const range = document.createRange();
+            range.selectNodeContents(target);
+            const sel = getSelection();
+            sel.removeAllRanges();
+            sel.addRange(range);
+            if (copyStatus) copyStatus.textContent = "selected";
+          }
         });
       });
 
@@ -783,11 +651,19 @@
       const probe = document.getElementById("probe");
       const vwEls = document.querySelectorAll("[data-vw]");
       const probeEls = document.querySelectorAll("[data-probe]");
+      const baseEls = document.querySelectorAll("[data-base]");
+      const bpEls = document.querySelectorAll("[data-bp]");
       function updateMeter() {
-        const w = window.innerWidth;
-        vwEls.forEach((el) => (el.textContent = w + "px"));
+        vwEls.forEach((el) => (el.textContent = innerWidth + "px"));
         const px = Math.round(parseFloat(getComputedStyle(probe).width));
         probeEls.forEach((el) => (el.textContent = px + "px"));
+        // read the live value of --window-width rather than hard-coding it
+        const base = getComputedStyle(document.documentElement)
+          .getPropertyValue("--window-width")
+          .trim();
+        baseEls.forEach((el) => (el.textContent = base));
+        const isMd = matchMedia("(min-width: 48rem)").matches;
+        bpEls.forEach((el) => (el.textContent = isMd ? "md" : "mobile"));
       }
       let raf;
       addEventListener("resize", () => {
@@ -795,6 +671,191 @@
         raf = requestAnimationFrame(updateMeter);
       });
       updateMeter();
+
+      // --- interactive mesh background ---
+      // A 60px mesh that bulges away from the pointer. It only paints while
+      // something is actually moving: the rAF loop stops as soon as the
+      // smoothed pointer settles, so an idle page costs nothing.
+      (() => {
+        const canvas = document.getElementById("mesh");
+        const prefersReduced = matchMedia(
+          "(prefers-reduced-motion: reduce)",
+        ).matches;
+        if (!canvas || !canvas.getContext || prefersReduced) return;
+        const ctx = canvas.getContext("2d", { alpha: true });
+        if (!ctx) return;
+        document.documentElement.classList.add("mesh-on");
+
+        const SPACING = 60; // matches the CSS grid it replaces
+        const RADIUS = 220; // pointer reach, in px
+        const STRENGTH = 26; // max displacement at the pointer
+
+        let w = 0,
+          h = 0,
+          cols = 0,
+          rows = 0;
+        const pointer = { x: -9999, y: -9999 }; // smoothed
+        const target = { x: -9999, y: -9999 }; // raw
+        let influence = 0, // smoothed 0→1
+          targetInfluence = 0,
+          running = false;
+
+        function resize() {
+          const dpr = Math.min(devicePixelRatio || 1, 2);
+          w = innerWidth;
+          h = innerHeight;
+          canvas.width = Math.round(w * dpr);
+          canvas.height = Math.round(h * dpr);
+          canvas.style.width = w + "px";
+          canvas.style.height = h + "px";
+          ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+          cols = Math.ceil(w / SPACING) + 1;
+          rows = Math.ceil(h / SPACING) + 1;
+          draw();
+        }
+
+        // push a node radially away from the pointer, falling off to nothing
+        // at RADIUS
+        function warp(x, y, out) {
+          const dx = x - pointer.x;
+          const dy = y - pointer.y;
+          const d2 = dx * dx + dy * dy;
+          if (influence <= 0.002 || d2 > RADIUS * RADIUS) {
+            out[0] = x;
+            out[1] = y;
+            return;
+          }
+          const d = Math.sqrt(d2) || 0.0001;
+          const f = 1 - d / RADIUS;
+          const push = f * f * STRENGTH * influence;
+          out[0] = x + (dx / d) * push;
+          out[1] = y + (dy / d) * push;
+        }
+
+        const p = [0, 0];
+        // half-pixel offset keeps the undistorted lines crisp
+        const at = (i) => i * SPACING + 0.5;
+
+        function meshPath(c0, c1, r0, r1) {
+          ctx.beginPath();
+          for (let r = r0; r <= r1; r++) {
+            for (let c = c0; c <= c1; c++) {
+              warp(at(c), at(r), p);
+              c === c0 ? ctx.moveTo(p[0], p[1]) : ctx.lineTo(p[0], p[1]);
+            }
+          }
+          for (let c = c0; c <= c1; c++) {
+            for (let r = r0; r <= r1; r++) {
+              warp(at(c), at(r), p);
+              r === r0 ? ctx.moveTo(p[0], p[1]) : ctx.lineTo(p[0], p[1]);
+            }
+          }
+        }
+
+        function draw() {
+          ctx.clearRect(0, 0, w, h);
+          ctx.lineWidth = 1;
+
+          // base mesh
+          ctx.strokeStyle = "rgba(255,255,255,0.03)";
+          meshPath(0, cols - 1, 0, rows - 1);
+          ctx.stroke();
+
+          if (influence <= 0.002) return;
+
+          // violet highlight, restricted to the nodes the pointer can reach.
+          // A radial gradient as strokeStyle fades it out on its own, so the
+          // whole halo is a single stroke.
+          const c0 = Math.max(0, Math.floor((pointer.x - RADIUS) / SPACING));
+          const c1 = Math.min(cols - 1, Math.ceil((pointer.x + RADIUS) / SPACING));
+          const r0 = Math.max(0, Math.floor((pointer.y - RADIUS) / SPACING));
+          const r1 = Math.min(rows - 1, Math.ceil((pointer.y + RADIUS) / SPACING));
+          if (c1 < c0 || r1 < r0) return;
+
+          const g = ctx.createRadialGradient(
+            pointer.x,
+            pointer.y,
+            0,
+            pointer.x,
+            pointer.y,
+            RADIUS,
+          );
+          g.addColorStop(0, `rgba(167,139,250,${0.42 * influence})`);
+          g.addColorStop(0.6, `rgba(167,139,250,${0.12 * influence})`);
+          g.addColorStop(1, "rgba(167,139,250,0)");
+          ctx.strokeStyle = g;
+          meshPath(c0, c1, r0, r1);
+          ctx.stroke();
+
+          // nodes
+          ctx.fillStyle = g;
+          for (let r = r0; r <= r1; r++) {
+            for (let c = c0; c <= c1; c++) {
+              warp(at(c), at(r), p);
+              ctx.fillRect(p[0] - 1.5, p[1] - 1.5, 3, 3);
+            }
+          }
+        }
+
+        function tick() {
+          pointer.x += (target.x - pointer.x) * 0.16;
+          pointer.y += (target.y - pointer.y) * 0.16;
+          influence += (targetInfluence - influence) * 0.09;
+          const settled =
+            Math.abs(target.x - pointer.x) < 0.5 &&
+            Math.abs(target.y - pointer.y) < 0.5 &&
+            Math.abs(targetInfluence - influence) < 0.004;
+          if (settled) {
+            pointer.x = target.x;
+            pointer.y = target.y;
+            influence = targetInfluence;
+            running = false;
+            draw();
+            return;
+          }
+          draw();
+          requestAnimationFrame(tick);
+        }
+
+        function start() {
+          if (running) return;
+          running = true;
+          requestAnimationFrame(tick);
+        }
+
+        addEventListener(
+          "pointermove",
+          (e) => {
+            if (e.pointerType === "touch") return; // leave scrolling alone
+            const first = targetInfluence === 0 && influence < 0.01;
+            target.x = e.clientX;
+            target.y = e.clientY;
+            if (first) {
+              // don't sweep in from off-screen on the first move
+              pointer.x = target.x;
+              pointer.y = target.y;
+            }
+            targetInfluence = 1;
+            start();
+          },
+          { passive: true },
+        );
+
+        const rest = () => {
+          targetInfluence = 0;
+          start();
+        };
+        // pointerleave doesn't bubble, so it has to be bound to <html> itself
+        document.documentElement.addEventListener("pointerleave", rest);
+        addEventListener("blur", rest);
+
+        let resizeRaf;
+        addEventListener("resize", () => {
+          cancelAnimationFrame(resizeRaf);
+          resizeRaf = requestAnimationFrame(resize);
+        });
+        resize();
+      })();
 
       // --- scroll reveal ---
       const io = new IntersectionObserver(
